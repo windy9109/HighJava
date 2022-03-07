@@ -33,27 +33,7 @@ public class ThreadTest13 {
 
 	public static void main(String[] args) {
 		
-//		ArrayList<HashMap<String,String>> list1 = new ArrayList<HashMap<String,String>>();
-//		HashMap<String,String> map2 = new HashMap<String,String>();
-//		
-//		for(int i=0; i<50; i++) {
-//			map2 = new HashMap<String,String>();
-//			map2.put("1번말","-");
-//			map2.put("2번말","-");
-//			map2.put("3번말","-");
-//		}
-//		System.out.print("1번말");
-//		for(int i=0; i<=50; i++) {
-//		System.out.print(map2.get("1번말"));
-//		}
-//		System.out.print("\n2번말");
-//		for(int i=0; i<=50; i++) {
-//		System.out.print(map2.get("2번말"));
-//		}
-//		System.out.print("\n3번말");
-//		for(int i=0; i<=50; i++) {
-//		System.out.print(map2.get("3번말"));
-//		}
+		
 		
 		
 		DisplyCharacter1[] ths = new DisplyCharacter1[] {
@@ -61,9 +41,6 @@ public class ThreadTest13 {
 				new DisplyCharacter1("2번말"),
 				new DisplyCharacter1("3번말")
 		};
-		
-		
-		
 		
 		
 		for(DisplyCharacter1 dc: ths) {
@@ -95,36 +72,15 @@ class DisplyCharacter1 extends Thread {
 	//출력이 끝난 대로 이름이 추가될 변수
 	public static String setRank ="";
 	public String name;
-	ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String,String>>();
-	HashMap<String,String> map = new HashMap<String,String>();
 
 	//생성자
 	public DisplyCharacter1(String name) {
 		super();
 		this.name = name;
 	}
-//	for() {
-//	String nameList[] = String name
-//	}
 	
 
-	public void runlist() {
-		
-		
-//		for(int i=0; i<50; i++) {
-//			map = new HashMap<String,String>();
-//			map.put("1번말","-");
-//			map.put("2번말","-");
-//			map.put("3번말","-");
-//		}
-//		for(int i=0; i<=50; i++) {
-//		System.out.println("1번말"+map.get("1번말"));
-//		System.out.println("2번말"+map.get("2번말"));
-//		System.out.println("3번말"+map.get("3번말"));
-//		}
 
-	}
-	
 	
 	@Override
 	public void run() {
@@ -133,38 +89,9 @@ class DisplyCharacter1 extends Thread {
 		
 		
 		for(int ch=0; ch<=50; ch++) {
-//			if(name.equals("1번말")) {
-//				 map.put("1번말",">");
-//				 map.put("2번말","-");
-//				 map.put("3번말","-");
-//			}else if(name.equals("2번말")) {
-//				 map.put("1번말","-");
-//				 map.put("2번말",">");
-//				 map.put("3번말","-");
-//			}else if(name.equals("3번말")) {
-//				 map.put("1번말","-");
-//				 map.put("2번말","-");
-//				 map.put("3번말",">");
-//			}
-//		
-			
-			
-			//만약 name가 1번 말이면서 ch가 0번이면 >를 출력한다.
 
-//				System.out.print(name);
-//				for(int i=0; i<50; i++) {
-//					//만약 i가 ch라면 > 출력
-//					if(i == ch) {
-//						System.out.print(">");
-//					}else if(i != ch){
-//						System.out.print("-");
-//					}
-//				}
-//				System.out.println();
-				
-
+			synchronized(this) {	
 			
-			if(name.equals("1번말")) {
 				System.out.print(name);
 				//- 50개 출력
 				for(int i=0; i<50; i++) {
@@ -179,55 +106,6 @@ class DisplyCharacter1 extends Thread {
 				System.out.println();
 
 			}
-			
-
-			if(name.equals("2번말")) {
-				System.out.print(name);
-				//- 50개 출력
-				for(int i=0; i<50; i++) {
-					//만약 i가 ch라면 > 출력
-					if(i == ch) {
-						System.out.print(">");
-					}else {
-						System.out.print("-");
-					}
-					
-				}
-				System.out.println();
-
-			}
-			
-
-		
-			
-			if(name.equals("3번말")) {
-				System.out.print(name);
-				//- 50개 출력
-				for(int i=0; i<50; i++) {
-					//만약 i가 ch라면 > 출력
-					if(i == ch) {
-						System.out.print(">");
-					}else {
-						System.out.print("-");
-					}
-					
-				}
-				System.out.println();
-
-			}
-			
-//			System.out.print("1번말");
-//			for(int i=0; i<=50; i++) {
-//			System.out.print(map.get("1번말"));
-//			}
-//			System.out.print("\n2번말");
-//			for(int i=0; i<=50; i++) {
-//			System.out.print(map.get("2번말"));
-//			}
-//			System.out.print("\n3번말");
-//			for(int i=0; i<=50; i++) {
-//			System.out.print(map.get("3번말"));
-//			}
 	
 			
 			try {

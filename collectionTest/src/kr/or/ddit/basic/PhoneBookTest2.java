@@ -63,7 +63,7 @@ public class PhoneBookTest2 {
 	public int add() {
 		System.out.println("새롭게 등록할 전화번호를 입력해주세요");
 		System.out.println("이름을 입력해주세요");
-		String name = sc.nextLine();
+		sc.nextLine();
 		String name1 = sc.nextLine();
 		System.out.println("주소를 입력해주세요");
 		String addr = sc.nextLine();
@@ -83,7 +83,6 @@ public class PhoneBookTest2 {
 		
 		
 		if( list.containsKey(rename) ) {
-			System.out.println("등록된이름입니다.");
 			System.out.println("수정할 주소를 입력해주세요");
 			String addr = sc.nextLine();
 			System.out.println("수정할 전화번호를 입력해주세요"); //0의 연속입력불가
@@ -117,7 +116,7 @@ public class PhoneBookTest2 {
 	//삭제
 	public int delete() {
 		System.out.println("삭제할 이름을 입력해주세요");
-		String name = sc.nextLine();
+		sc.nextLine();
 		String name2 = sc.nextLine();
 		list.remove(name2);
 		System.out.println("삭제성공!");
@@ -128,7 +127,7 @@ public class PhoneBookTest2 {
 	public int select() {
 		
 		System.out.println("검색 할 이름을 입력해주세요");
-		String name = sc.nextLine();  //인식못함
+		sc.nextLine();  //인식못함
 		String name2 = sc.nextLine();
 		System.out.println(list.get(name2));
 		return start();
