@@ -25,7 +25,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 
 
-public class test04 {
+public class SAXtest {
 	public static void main(String[] args) {
 		
 		File file = new File("d:/d_other/staff2.xml");

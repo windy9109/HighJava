@@ -7,7 +7,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Element; 
 import java.io.File; 
 
-public class test02 { 
+public class DOMtest { 
 	
 	public static void main(String argv[]) { 
 		
