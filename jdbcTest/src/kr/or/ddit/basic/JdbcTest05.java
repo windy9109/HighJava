@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import kr.or.ddit.util.DBUtil;
+
 /*
  * Lprod테이블에 새로운 데이터를 추가하기
  * lprod_gu와 lprod_nm은 직접 입력받아서 처리하고,
@@ -30,33 +32,41 @@ public class JdbcTest05 {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
-			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","LSG9","java" );
-			
+			conn = DBUtil.getConnection();
+	
 			String lprodGu;
 			String lprodNm;
-			
+			boolean con = false;
 
-				System.out.println("lprod_gu를 입력해주세요");
-				lprodGu = scan.next();
-				
+				do {
+					
+					System.out.println("lprod_gu를 입력해주세요");
+					lprodGu = scan.next();
+		
+					
+		
+					
+					String sql0="select LPROD_GU from LPROD";
+					
+					stmt = conn.createStatement();
+					rs = stmt.executeQuery(sql0);
+					
+					
+					while(rs.next()) {
+						System.out.println(rs.getString(1));
+						if(lprodGu != rs.getString(1)) {
+							con = true;
+							break;
+						}else if(lprodGu == rs.getString(1)){
+							System.out.println("중복된 분류입니다. 다시입력해주세요");
+							break;
+						}
+					}
+				}while(con == false);
+			
 				System.out.println("lprod_nm을 입력해주세요");
 				lprodNm = scan.next();
-	
-				
-	
-				
-				String sql0="select LPROD_GU from LPROD";
-				
-				stmt = conn.createStatement();
-				rs = stmt.executeQuery(sql0);
-				while(rs.next()) {
-					if( lprodGu != rs.getString(1) ) {
-						break;
-					}
-				}
-			
 			
 			String sql="insert into LPROD(LPROD_ID, LPROD_GU, LPROD_NM)"
 					+ "	values(((select max(LPROD_ID) FROM LPROD)+1),?,?)";
