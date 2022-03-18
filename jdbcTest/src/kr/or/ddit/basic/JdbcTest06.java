@@ -197,33 +197,60 @@ public class JdbcTest06 {
 	
 	
 	public int delete(){
-	
+		
+		int count = 0;
+		
 		try {
+			
 			conn = DBUtil.getConnection();
-			System.out.println("삭제할 아이디를 입력해주세요.");
-			String MemId = scan.next();
-
-			String sql2="delete from MYMEMBER where MEM_ID = ?";
 			
-			pstmt = conn.prepareStatement(sql2);
-			pstmt.setString(1, MemId);
+			String memId;
 			
-			int cnt2 = pstmt.executeUpdate();
-			if(cnt2 == 0) {
-				System.out.println("삭제성공~");
+			do {
+				
+				System.out.println("삭제할 아이디를 입력해주세요");
+				memId = scan.next();
+				
+				String sql0 = "select count(*) as cnt from MYMEMBER where MEM_ID = ?";
+				pstmt = conn.prepareStatement(sql0);
+				pstmt.setString( 1, memId ); 
+				
+				rs = pstmt.executeQuery();
+						
+				if( rs.next() ) {
+					count = rs.getInt("cnt"); 
+				}
+				if(count == 0) {
+					System.out.println("등록되지 않은 아이디입니다. 다시입력해주세요.");
+				}
+				
+			}while(count == 0);
+			
+	
+			
+			String sql = "delete from MYMEMBER where MEM_ID = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memId);
+			
+			
+			int cnt = pstmt.executeUpdate();
+			
+			if(cnt > 0) {
+				System.out.println("삭제성공");
 			}else {
-				System.out.println("삭제실패~");
+				System.out.println("삭제실패");
 			}
-					
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			if(rs!=null) try {rs.close(); }catch(SQLException e){}
-			if(pstmt!=null) try {pstmt.close(); }catch(SQLException e){}
-			if(conn!=null) try {conn.close(); }catch(SQLException e){}
+			if( rs != null ) try { rs.close(); }catch(SQLException e){}
+			if(pstmt != null) try { pstmt.close(); }catch(SQLException e) {}
+			if(conn != null) try { conn.close(); }catch(SQLException e){} 
 		}
-
+		
 		return start();
 		
 	}
