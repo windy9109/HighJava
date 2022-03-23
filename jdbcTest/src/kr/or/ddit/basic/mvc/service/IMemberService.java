@@ -3,6 +3,7 @@ package kr.or.ddit.basic.mvc.service;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.basic.mvc.vo.MemberVO;
 
@@ -69,7 +70,12 @@ public interface IMemberService {
 	 * @throws SQLException
 	 */
 	public int getMemberCount(String memId);
+
+
+
+	public int updateMember2(Map<String, String> paramMap);
 	
+
 	
 	
 	

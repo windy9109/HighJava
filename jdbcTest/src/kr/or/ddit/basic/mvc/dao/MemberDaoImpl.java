@@ -7,11 +7,35 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.basic.mvc.vo.MemberVO;
+import kr.or.ddit.basic.singleton.MySingleton;
 
 public class MemberDaoImpl implements IMemberDao{
 
+//	private static MemberDaoImpl single;
+//	
+//	public static MemberDaoImpl getInstance() {
+//		if(single == null) single = new MemberDaoImpl();
+//		
+//		return single;
+//	}
+	
+	//1번
+	private static MemberDaoImpl dao;
+	
+	//2번
+	private MemberDaoImpl() {}
+	
+	//3번
+	public static MemberDaoImpl getInstance() {
+		if(dao == null) dao = new MemberDaoImpl();
+		return dao;
+	}
+	
+	
+	
 	@Override
 	public int insertMember(Connection conn, MemberVO memVo) throws SQLException {
 		String sql="insert into mymember"
@@ -117,48 +141,24 @@ public class MemberDaoImpl implements IMemberDao{
 	}
 
 	@Override
-	public int updateMember2(Connection conn, MemberVO memVo, int update) throws SQLException {
-		int input;
-		String updateField = null;
-		String updateTitle = null;
-		String getupdate = null;
+	public int updateMember2(Connection conn, Map<String, String> paramMap) throws SQLException {
+		//key값 정보 ==> 회원ID(memid), 수정할 컬럼명(field), 수정할데이터(data)
 		
-		switch(update) {
-		case 1: updateField = "mem_pass";//비밀번호
-				updateTitle = "비밀번호";
-				getupdate = memVo.getMem_pass();
-			break;
-		case 2: updateField = "mem_name";//이름
-				updateTitle = "회원이름";
-				getupdate = memVo.getMem_name();
-			break;
-		case 3: updateField = "mem_tel";//전화번호
-				updateTitle = "전화번호";
-				getupdate = memVo.getMem_tel();
-			break;
-		case 4: updateField = "mem_addr";//주소
-				updateTitle = "회원주소";
-				getupdate = memVo.getMem_addr();
-			break;
-			}
-		
-		String sql ="update mymember set "
-				+ updateField + "=? where mem_id=? ";
-		
+		String sql = "update mymember set "
+				+ paramMap.get("field") +" =? "
+						+ " where mem_id = ? ";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, memVo.getMem_id());
-		pstmt.setString(2, getupdate);
-
+		pstmt.setString(1, paramMap.get("data"));
+		pstmt.setString(2, paramMap.get("memid"));
 		
 		int cnt = pstmt.executeUpdate();
+		if(pstmt != null)pstmt.close();
 		
-		if(cnt>0) {
-			System.out.println("회원정보 수정 완료~!!");
-		}else {
-			System.out.println("회원정보 수정 실패~!!");
-		}
 		return cnt;
 	}
+
+	
+	
 
 
 

@@ -1,10 +1,12 @@
 package kr.or.ddit.basic.mvc.service;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.basic.mvc.dao.IMemberDao;
 import kr.or.ddit.basic.mvc.dao.MemberDaoImpl;
@@ -16,11 +18,20 @@ public class MemberServiceImpl implements IMemberService {
 
 	private IMemberDao dao;
 
+	private static MemberServiceImpl service;
 	
-	public MemberServiceImpl() {
-		dao = new MemberDaoImpl();
+	private MemberServiceImpl() {
+		//dao = new MemberDaoImpl();
+		dao = MemberDaoImpl.getInstance();
 	}
 
+	public static MemberServiceImpl getInstance() {
+		if(service == null) service = new MemberServiceImpl();
+		return service;
+	}
+
+	
+	
 	
 	@Override
 	public int insertMember(MemberVO memVo) {
@@ -106,21 +117,27 @@ public class MemberServiceImpl implements IMemberService {
 	}
 
 	
-	public int updateMember2( MemberVO memVo, int update) {
+	@Override
+	public int updateMember2(Map<String, String> paramMap) {
 		Connection conn = null;
 		int cnt = 0; //반환값변수
 		try {
 			conn = DBUtil.getConnection();
-			cnt = dao.updateMember2(conn, memVo, update);
+			cnt = dao.updateMember2(conn, paramMap);
 		} catch (SQLException e) {
-			cnt =0;
+			cnt = 0;
 			e.printStackTrace();
 		}finally {
 			if(conn != null) try { conn.close(); }catch(SQLException e) {}
 		}
 		return cnt;
-		
 	}
+
+
+
+	
+	
+
 	
 }
 
