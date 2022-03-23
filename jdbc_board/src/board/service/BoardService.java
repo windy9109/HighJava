@@ -12,6 +12,7 @@ public interface BoardService {
 	public int deleteBoard(int boardNo );
 	public int updateBoard(BoardVo boardVo );
 	public int getcount(int boardNo );
+	public List<BoardVo> serch(String word );
 	public List<BoardVo> getAllView();
 	
 	

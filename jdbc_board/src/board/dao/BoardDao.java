@@ -16,7 +16,7 @@ public interface BoardDao {
 	public int updateBoard(Connection conn, BoardVo boardVo ) throws SQLException;
 	public int getcount(Connection conn, int boardNo ) throws SQLException;
 	public List<BoardVo> getAllView(Connection conn ) throws SQLException;
-	
+	public List<BoardVo> serch(Connection conn, String word )throws SQLException;
 	
 	
 	

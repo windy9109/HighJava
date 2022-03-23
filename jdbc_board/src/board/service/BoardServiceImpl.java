@@ -8,6 +8,7 @@ import board.dao.BoardDao;
 import board.dao.BoardDaoImpl;
 import board.vo.BoardVo;
 import kr.or.ddit.util.DBUtil;
+import kr.or.ddit.util.DBUtil3;
 
 public class BoardServiceImpl implements BoardService {
 
@@ -31,7 +32,7 @@ public class BoardServiceImpl implements BoardService {
 		int cnt = 0;
 		
 		try {
-			conn = DBUtil.getConnection();
+			conn = DBUtil3.getConnection();
 			cnt = dao.insertBoard(conn, boardVo);
 		} catch (SQLException e) {
 			cnt = 0;
@@ -47,7 +48,7 @@ public class BoardServiceImpl implements BoardService {
 		Connection conn = null;
 		int cnt = 0;
 		try {
-			conn = DBUtil.getConnection();
+			conn = DBUtil3.getConnection();
 			cnt = dao.deleteBoard(conn, boardNo);
 		} catch (SQLException e) {
 			cnt = 0;
@@ -63,7 +64,7 @@ public class BoardServiceImpl implements BoardService {
 		Connection conn = null;
 		int cnt = 0;
 		try {
-			conn = DBUtil.getConnection();
+			conn = DBUtil3.getConnection();
 			cnt = dao.updateBoard(conn, boardVo);
 		} catch (SQLException e) {
 			cnt = 0;
@@ -81,7 +82,7 @@ public class BoardServiceImpl implements BoardService {
 		Connection conn = null;
 		int cnt =0;
 		try {
-			conn = DBUtil.getConnection();
+			conn = DBUtil3.getConnection();
 			cnt = dao.getcount(conn, boardNo);
 		} catch (SQLException e) {
 			cnt = 0;
@@ -97,7 +98,7 @@ public class BoardServiceImpl implements BoardService {
 		Connection conn = null;
 		List<BoardVo> boardList = null;
 		try {
-			conn = DBUtil.getConnection();
+			conn = DBUtil3.getConnection();
 			boardList = dao.getAllView(conn);
 		} catch (SQLException e) {
 			boardList = null;
@@ -106,6 +107,24 @@ public class BoardServiceImpl implements BoardService {
 		}
 		
 		return boardList;
+	}
+
+	@Override
+	public List<BoardVo> serch(String word) {
+		
+		Connection conn = null;
+		List<BoardVo> serch = null;
+		
+		try {
+			conn = DBUtil3.getConnection();
+			serch = dao.serch(conn, word);
+		} catch (SQLException e) {
+			serch = null;
+		}finally {
+			if(conn != null) try { conn.close(); }catch(SQLException e) {}
+		}
+		
+		return serch;
 	}
 	
 	

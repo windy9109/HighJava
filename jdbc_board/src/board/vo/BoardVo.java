@@ -7,6 +7,12 @@ public class BoardVo {
 	private String borad_viewCount;
 	private String content;
 	private String mem_id;
+	private String board_date;
+	@Override
+	public String toString() {
+		return "BoardVo [borad_no=" + borad_no + ", borad_title=" + borad_title + ", borad_viewCount=" + borad_viewCount
+				+ ", content=" + content + ", mem_id=" + mem_id + ", board_date=" + board_date + "]";
+	}
 	
 	
 	public int getBorad_no() {
@@ -39,13 +45,13 @@ public class BoardVo {
 	public void setMem_id(String mem_id) {
 		this.mem_id = mem_id;
 	}
-	@Override
-	public String toString() {
-		return "BoardVo [borad_no=" + borad_no + ", borad_title=" + borad_title + ", borad_viewCount=" + borad_viewCount
-				+ ", content=" + content + ", mem_id=" + mem_id + "]";
+	public String getBoard_date() {
+		return board_date;
+	}
+	public void setBoard_date(String board_date) {
+		this.board_date = board_date;
 	}
 	
-
 	
 	
 	

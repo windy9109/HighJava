@@ -75,7 +75,7 @@ public class BoardDaoImpl implements BoardDao {
 		if(cnt>0) {
 			System.out.println("게시글 수정완료!");
 		}else {
-			System.out.println("회원정보 수정 실패~!");
+			System.out.println("게시글 수정 실패~!");
 		}
 		return cnt;
 	}
@@ -113,12 +113,12 @@ public class BoardDaoImpl implements BoardDao {
 		
 		while(rs.next()) {
 			BoardVo boardVo = new BoardVo(); //개의 레코드가 저장될 객체변수
-			boardVo.setMem_id(rs.getString("BOARD_NO"));
-			boardVo.setMem_id(rs.getString("BOARD_TITLE"));
+			boardVo.setBorad_no(rs.getInt("BOARD_NO"));
+			boardVo.setBorad_title(rs.getString("BOARD_TITLE"));
 			boardVo.setMem_id(rs.getString("BOARD_WRITER"));
-			boardVo.setMem_id(rs.getString("BOARD_DATE"));
-			boardVo.setMem_id(rs.getString("BOARD_CNT"));
-			boardVo.setMem_id(rs.getString("BOARD_CONTENT"));
+			boardVo.setBoard_date(rs.getString("BOARD_DATE"));
+			boardVo.setBorad_viewCount(rs.getString("BOARD_CNT"));
+			boardVo.setContent(rs.getString("BOARD_CONTENT"));
 			
 			boradVo.add(boardVo);
 			
@@ -129,6 +129,38 @@ public class BoardDaoImpl implements BoardDao {
 		
 		
 		return boradVo;
+	}
+	
+	@Override
+	public List<BoardVo> serch(Connection conn, String word) throws SQLException {
+		//글번호, 글제목, 작성자, 작성날짜, 조회수, 내용		
+				//BOARD_NO, BOARD_TITLE, BOARD_WRITER, BOARD_DATE, BOARD_CNT, BOARD_CONTENT	
+				List<BoardVo> boradVo = new ArrayList<BoardVo>();
+				String sql = "select * from JDBC_BOARD where BOARD_TITLE LIKE %?%";
+				
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, word);
+				
+				ResultSet rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					BoardVo boardVo = new BoardVo(); //개의 레코드가 저장될 객체변수
+					boardVo.setBorad_no(rs.getInt("BOARD_NO"));
+					boardVo.setBorad_title(rs.getString("BOARD_TITLE"));
+					boardVo.setMem_id(rs.getString("BOARD_WRITER"));
+					boardVo.setBoard_date(rs.getString("BOARD_DATE"));
+					boardVo.setBorad_viewCount(rs.getString("BOARD_CNT"));
+					boardVo.setContent(rs.getString("BOARD_CONTENT"));
+					
+					boradVo.add(boardVo);
+					
+				}
+				
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				
+				
+				return boradVo;
 	}
 	
 	
