@@ -6,7 +6,15 @@
 PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
     "http://www.ibatis.com/dtd/sql-map-2.dtd">
    
- <sqlMap namespace="lprod">
+<sqlMap namespace="lprod">
+
+	
+	<!--
+	 
+		이 문서에서도 <typeAlais>태그를 사용해서 alias를 설정 할수 있다.
+		
+	 -->
+
  	<!-- 이부분에 처리할 sql문에 맞는 태그를 사용해서 처리할 sql문을 기술한다.
  		 사용할수있는 기본적인 태그들...
  		<select> 쿼리문... </select>	 
@@ -26,11 +34,58 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
  	 	(VO클래스 등을 기술할때는 해당클래스의 전체 이름을 모두 기술해야한다.)
  	  -->
  
- <insert id="insertLprod" parameterClass="kr.or.ddit.vo.LprodVo">
+ <insert id="insertLprod" parameterClass="kr.or.ddit.vo.LprodVO">
  <!--  <insert id="insertLprod" parameterClass="lprodVo"> -->
  	insert into lprod (lprod_id, lprod_gu, lprod_nm)
  	values (#lprod_id#, #lprod_gu#, #lprod_nm#) 
  	<!-- 세미콜론이 들어가면안됨 -->
  </insert>
+ 
+ 
+ <update id ="updateLprod" parameterClass="lprodVO">
+ 	update lprod set
+ 	lprod_id=#lprod_id#, lprod_nm = #lprod_nm#
+ 	where lprod_gu=#lprod_gu#
+ </update>
+ 
+ 
+ <!-- parameterClass에 설정되는 값이 단일값이면
+ 	  sql문에 이 값을 나타내는 변수의 이름은
+ 	  사용자가 임의로 지정할수있다.
+  -->
+ 
+ <delete id="deleteLprod" parameterClass="string">
+ <!-- delete from lprod where lprod_gu = #lprod_gu# -->
+ 	delete from lprod where lprod_gu = #sss#
+ </delete>
+ 
+ 
+ <!-- 
+ 	resultClass속성 ==> select문에서 처리한 결과를 저장할 VO클래스나 
+ 						Map객체 또는 java의 기본자료형 이름을 지정한다.
+ 	
+ 	select한 결과가 여러개이면 자동으로 List에 담아줄 수 있다.
+ 	그래서 결과가 여러개 일 경우에도 이 속성에는 1개의 레코드가 
+ 	저장될 클래스나 자료형이름을 지정하면 된다.
+ 	
+  -->
+ 
+ 
+ <!-- 
+	 parameterClass와 resultClass에는 
+	 <typeAlias>에서 선언한 alias명을 사용할수있다. 
+ -->
+  
+ 
+ <select id="getAllLprod" resultClass="lprodVo" >
+ 	select * from lprod
+ </select>
+ 
+ 
+ 
+  <select id="getLprod" parameterClass="string" resultClass="lprodVo" >
+ 	select * from lprod where lprod_gu = #lprod_gu#
+ </select>
+ 
  
  </sqlMap>

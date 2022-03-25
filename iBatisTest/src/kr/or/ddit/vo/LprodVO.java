@@ -7,6 +7,7 @@ public class LprodVO {
 	private String lprod_nm;
 	
 	
+
 	public int getLprod_id() {
 		return lprod_id;
 	}
