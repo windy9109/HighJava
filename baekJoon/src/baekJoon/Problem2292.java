@@ -16,19 +16,15 @@ public class Problem2292 {
 		System.out.println("숫자입력");
 		Scanner scan = new Scanner(System.in);
 		Long sc = scan.nextLong();
-		int n = 0;
-		do {
+		int n=0;
+		while( (6*n)+1 < sc && Integer.MAX_VALUE > n) {
 			n ++;
 		}
-		while( (6*(3*n))+1 < sc && Integer.MAX_VALUE > n);
 		
 		System.out.println(n+1);
 	
-		
-//		if( 1(6) ) {
-//			
-//		}
 
+		
 		
 		
 		
