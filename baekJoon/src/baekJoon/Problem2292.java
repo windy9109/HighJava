@@ -12,21 +12,18 @@ public class Problem2292 {
 //		입력으로 주어진 방까지 최소 개수의 방을 지나서 갈 때 몇 개의 방을 지나는지 출력한다.
 //		예제입력 13, 예제출력 3
 		
-		
-		System.out.println("숫자입력");
 		Scanner scan = new Scanner(System.in);
 		Long sc = scan.nextLong();
-		int n=0;
-		while( (6*n)+1 < sc && Integer.MAX_VALUE > n) {
-			n ++;
+		int layer=0;
+		int sum =2;
+		
+		while( sum <= sc ) {
+			sum += (6*layer);
+			layer ++;
 		}
+		if(sc == 1) layer=1;
 		
-		System.out.println(n+1);
-	
-
-		
-		
-		
+		System.out.println(layer);
 		
 		
 		
