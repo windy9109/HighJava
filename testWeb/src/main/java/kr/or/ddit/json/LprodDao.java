@@ -20,6 +20,7 @@ public class LprodDao {
 			return dao;
 	}
 	
+	
 	public List<LprodVO> getLprodList(){
 		LprodVO lprod = null;
 		List<LprodVO> lprodlist = null;

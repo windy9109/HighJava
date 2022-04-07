@@ -1,3 +1,4 @@
+<%@page import="kr.or.ddit.json.LprodVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -15,14 +16,20 @@ $(function() {
 			type: "get",
 			success: function(data) { //응답데이터 처리 함수
 				
-				let str = "리스트 데이터";	
+				let str = "<table border='1'>";	
+				str += "<tr><td>LPROG_ID</td>";	
+				str += "<td>LPROG_GU</td>";	
+				str += "<td>LPROG_NM</td></tr>";	
+				
 				$.each(data, function(i,v) {
-					str += "<hr>";
-					str += "id: "+ v.lprod_id+"<br>";
-					str += "gu: "+ v.lprod_gu+"<br>";
-					str += "nm: "+ v.lprod_nm+"<br>";
+					str += "<tr>";
+					str += "<td>id: "+ v.lprod_id+"</td>";
+					str += "<td>gu: "+ v.lprod_gu+"</td>";
+					str += "<td>nm: "+ v.lprod_nm+"</td></tr>";
 					
 				})
+				str += "</table>";	
+				
 				$("#result").html(str);
 			},
 			error: function() {
@@ -33,6 +40,16 @@ $(function() {
 		})
 	})
 	
+	
+	$("#lprodBtn2").on("click", function() {
+		
+		location.href = "<%= request.getContextPath() %>/lprodList2.do"
+		
+	
+			
+	})
+	
+	
 })
 </script>
 </head>
@@ -42,7 +59,8 @@ $(function() {
 	DB의 LPROD테이블의 전체 데이터를 가져와 화면에 출력하시오.
  -->
 <form>
-	<input type="button" id="lprodBtn" value="Lprod자료 가져오기">
+	<input type="button" id="lprodBtn" value="Lprod자료 가져오기(ajax)">
+	<input type="button" id="lprodBtn2" value="Lprod자료 가져오기(non ajax)">
 </form>
 
 <h3>lprod 자료목록</h3>
