@@ -7,32 +7,37 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 
 
 //jdbc 드라이버를 로딩하고 Connection 객체를 생성하여 반환하는 메서드로 구성된 class
-//(ResourceBundle객체로 properties파일 내용을 읽어와 설정하기)
+//(dbinfo.properties 파일의 내용을 읽어와 설정하기)
 
-public class DBUtil3 {
+
+public class DBUtil2 {
 	
-	static ResourceBundle bundle; // ResourceBundle 객체 변수 선언
-	
+	static Properties prop; //properties 객체 변수 선언
 	
 	
 	//static 초기화 블럭
 	static {
-		bundle = ResourceBundle.getBundle("kr.or.ddit.ibatis.config.dbinfo");
+		prop = new Properties(); // Properties객체생성
+		File f = new File("res/kr/or/ddit/config/dbinfo.properties");
+		FileInputStream fin = null;
 		
 		try {
 			
+			fin = new FileInputStream(f); //스트림객체생성
+			prop.load(fin);
 			
 			
-			
-			
-			Class.forName(bundle.getString("driver"));
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Class.forName(prop.getProperty("driver"));
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패~~~");
+			e.printStackTrace();
+		}catch(IOException e){
+			System.out.println("입출력오류 ~~ 드라이버 로딩 실패....");
 			e.printStackTrace();
 		}
 		
@@ -43,9 +48,9 @@ public class DBUtil3 {
 	public static Connection getConnection() {
 		try {
 			return DriverManager.getConnection(
-					bundle.getString("url"),
-					bundle.getString("user"),
-					bundle.getString("pass")
+					prop.getProperty("url"),
+					prop.getProperty("user"),
+					prop.getProperty("pass")
 					);
 		} catch (SQLException e) {
 			System.out.println("DB 연결 실패!!!");
