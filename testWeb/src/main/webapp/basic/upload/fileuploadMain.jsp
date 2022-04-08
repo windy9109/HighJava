@@ -22,5 +22,10 @@
 	
 	
 	</form>
+	
+	<hr>
+	
+	<a href="<%= request.getContextPath() %>/uploadFileList.do">전체 upload한 파일 목록보기</a>
+	
 </body>
 </html>

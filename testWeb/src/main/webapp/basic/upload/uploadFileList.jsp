@@ -51,7 +51,7 @@ if(userName != null){
 				<td><%= finfo.getFileName() %></td>
 				<td><%= finfo.getFileSize() %>KB</td>
 				<td><%= finfo.getStatus() %></td>
-				<td>downLoad</td>
+				<td><a href="<%= request.getContextPath() %>/fileDownLoad.do?filename=<%= finfo.getFileName() %>">downLoad</a></td>
 			</tr>
 			
 			<% 
