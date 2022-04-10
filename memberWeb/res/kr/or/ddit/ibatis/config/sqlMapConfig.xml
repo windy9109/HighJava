@@ -47,6 +47,7 @@
 	-->
 	
 	<sqlMap resource="kr/or/ddit/ibatis/mapping/memberList.xml"/>
+
 	
 
 </sqlMapConfig>	

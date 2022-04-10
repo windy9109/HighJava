@@ -9,7 +9,7 @@ import kr.or.ddit.memberWeb.VO.MemberWebVO;
 
 public class MemberWebServiceImpl implements MemberWebService{
 	
-	private static MemberWebServiceImpl service;
+	private static MemberWebService service;
 	private MemberWebDao dao;
 	
 
@@ -17,7 +17,7 @@ public class MemberWebServiceImpl implements MemberWebService{
 		dao = MemberWebDaoImpl.getInstance();
 	}
 	
-	public static MemberWebServiceImpl getInstance() {
+	public static MemberWebService getInstance() {
 		if(service == null) service = new MemberWebServiceImpl();
 		
 		return service;
@@ -35,6 +35,8 @@ public class MemberWebServiceImpl implements MemberWebService{
 		}
 		
 		return list;
+//		return dao.selectAll();
+		
 	}
 
 }

@@ -19,8 +19,7 @@ public class SqlMapClientFactory {
 		try {
 			Charset charset = Charset.forName("utf-8");
 			Resources.setCharset(charset);
-			rd = Resources.getResourceAsReader("kr/or/ddit/iBatisTest/config/sqlMapConfig.xml");
-			
+			rd = Resources.getResourceAsReader("kr/or/ddit/ibatis/config/sqlMapConfig.xml");
 			smc = SqlMapClientBuilder.buildSqlMapClient(rd);
 			
 			//---------------------------------------------------------

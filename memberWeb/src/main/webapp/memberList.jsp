@@ -24,6 +24,7 @@ List<MemberWebVO> memberList = (List<MemberWebVO>)request.getAttribute("listDo")
 		<td>전화</td>
 		<td>주소</td>
 	</tr>
+	
 <%-- <% 
 	for( MemberWebVO memberList0 : memberList){
 %>
@@ -40,6 +41,7 @@ List<MemberWebVO> memberList = (List<MemberWebVO>)request.getAttribute("listDo")
 	}
 
 %> --%>
+
 </table>
 
 </body>
