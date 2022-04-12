@@ -32,11 +32,11 @@ public class MemberList extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		
-//		request.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("utf-8");
 //		
-//		response.setCharacterEncoding("utf-8");
-//		response.setContentType("application/json; charset=UTF-8");
-//		PrintWriter out = response.getWriter();
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("application/json; charset=UTF-8");
+		PrintWriter out = response.getWriter();
 //		
 //		 out.println("<h2>계산 결과</h2>");
 //		 
@@ -64,7 +64,7 @@ public class MemberList extends HttpServlet {
 		MemberWebService service = MemberWebServiceImpl.getInstance();
 		
 		//3. service 메소드 호출하기 결과값 return 받기
-		List<MemberWebVO> list = service.selectAll();
+		List<MemberWebVO> list2 = service.selectAll();
 		
 		//4. request에 결과 값을 저장
 		//request.setAttribute("listvalue", list);
@@ -73,10 +73,10 @@ public class MemberList extends HttpServlet {
 		//request.getRequestDispatcher("0401/sido.jsp").forward(request, response);
 		
 		Gson gon = new Gson();
-		String result = gon.toJson(list);
+		String result = gon.toJson(list2);
 		
-		response.setContentType("application/json;charset=utf-8");
-		PrintWriter out = response.getWriter();
+//		response.setContentType("application/json;charset=utf-8");
+//		PrintWriter out = response.getWriter();
 		
 		out.print(result);
 		out.flush();

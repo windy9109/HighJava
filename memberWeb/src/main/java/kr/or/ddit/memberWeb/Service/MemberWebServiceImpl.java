@@ -1,11 +1,13 @@
 package kr.or.ddit.memberWeb.Service;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 import kr.or.ddit.memberWeb.Dao.MemberWebDao;
 import kr.or.ddit.memberWeb.Dao.MemberWebDaoImpl;
 import kr.or.ddit.memberWeb.VO.MemberWebVO;
+import kr.or.ddit.util.DBUtil3;
 
 public class MemberWebServiceImpl implements MemberWebService{
 	
@@ -24,7 +26,6 @@ public class MemberWebServiceImpl implements MemberWebService{
 	}
 
 
-
 	@Override
 	public List<MemberWebVO> selectAll() {
 		List<MemberWebVO> list = null;
@@ -35,8 +36,9 @@ public class MemberWebServiceImpl implements MemberWebService{
 		}
 		
 		return list;
-//		return dao.selectAll();
 		
 	}
+	
+	
 
 }
