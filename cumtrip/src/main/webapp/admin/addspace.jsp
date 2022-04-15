@@ -26,7 +26,26 @@
 </style>    	  
   	  
    <script type="text/javascript">
-		
+   
+			$(function(){
+				
+				$.ajax({
+					url: "/cumtrip/spacemain.do",
+					type: 'get',
+					success : function(res){
+						str = "";
+						$.each(res, function(i,v){
+						str += '<option value="'+v+'" >'+v+'</option>';
+					
+							})
+						$('#codedetail').html(str);	
+					},
+					error: function(xhr){
+						alert(xhr.status);
+					},
+					dataType: 'json'
+				})
+			})
    </script> 
 
    
@@ -166,14 +185,11 @@
                                
                                 <td>세부분류코드</td>
                                    <td> <select name ="codedetail" id="codedetail">
-                                    	<option value="레저">레저</option>
-                                    	<option value="공원">공원</option>
-                                    	<option value="박물관">박물관</option>
-                                    	<option value="기타">기타</option>
+                                    	
                                     </select>
                                 </td>
                                <td>사진 업로드</td>
-                               <td><input type="file" name="file" id="file"></td>
+                               <td><input type="file" name="file" id="file" multiple></td>
                             </tr>
                             <tr>
                             <td>관광명소 설명</td>
@@ -187,10 +203,10 @@
                                 </tr>
                             </tbody>
                         </table>
-                        </form>
                         <div style ="text-align: right">
                         <input type="submit" value="등록하기" class="btn btn-success">
                         <input type="reset" value="취소" class="btn btn-danger">
+                        </form>
                         </div>
                     </div>
                       </div>

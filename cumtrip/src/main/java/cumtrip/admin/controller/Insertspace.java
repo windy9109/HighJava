@@ -3,7 +3,9 @@ package cumtrip.admin.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -13,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import cumtrip.admin.service.PlaceService;
+import cumtrip.admin.service.RestaurantService;
 import cumtrip.vo.MiddleVO;
 
 
@@ -33,31 +37,34 @@ public class Insertspace extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		MiddleVO vo = new MiddleVO();
+		PlaceService service = PlaceService.getInstance();
+		RestaurantService service2 = RestaurantService.getInstance();
+		Map<String,Object> map = new HashMap<String,Object>();
+		
 		String name = request.getParameter("name");
 		String location = request.getParameter("location");
-		int xsite = Integer.parseInt(request.getParameter("xsite"));
-		int ysite = Integer.parseInt(request.getParameter("ysite"));
+		double xsite = Double.parseDouble(request.getParameter("xsite"));
+		double ysite = Double.parseDouble(request.getParameter("ysite"));
 		String web = request.getParameter("web");
-		int spendtime = Integer.parseInt(request.getParameter("spendtime"));
+		String spendtime = request.getParameter("spendtime");
 		String codedetail = request.getParameter("codedetail");
 		String content = request.getParameter("content");
 		String cost = request.getParameter("cost");
-
-		vo.setMid_name(name);
-		vo.setMid_location(location);
-		vo.setMid_x(spendtime);
-		vo.setMid_y(spendtime);
-		vo.setMid_web(web);
-		vo.setMid_time(spendtime);
-		vo.setMid_ex(content);
-		vo.setMid_cost(cost);
 		
-		//상세코드
-		//codedetail;
+		map.put("mid_name", name);
+		map.put("mid_location", location);
+		map.put("mid_x", xsite);
+		map.put("mid_y", ysite);
+		map.put("mid_web", web);
+		map.put("mid_time", spendtime);
+		map.put("mid_ex", content);
+		map.put("mid_cost", cost);
+		map.put("main_cate", codedetail);
 		
+		int result = service.insertspace(map);
 		List<Fileinfo> list = new ArrayList<Fileinfo>();
 		
-		String uploadPath = "d:/d_other/traveler/space";
+		String uploadPath = "d:/연습용산출물/traveler/space/";
 		
 		File fdir = new File(uploadPath);
 		if(!fdir.exists()) {
@@ -65,11 +72,15 @@ public class Insertspace extends HttpServlet {
 		}
 		
 		String fileName = ""; //파일명이 저장될 변수명 
+		Map<String, String> filemap = new HashMap<String,String>();
+		filemap.put("mid_name", name);
+		filemap.put("mid_location", location);
+		 int fileresult = 0;
 		 //전체 Part객체 개수만큼 반복 	
 		 for(Part part : request.getParts()) {
 			 // 1개의 업로드 파일 정보를 구한다. 
 			 fileName = extractFilename(part);
-			 
+			
 			 if(!fileName.equals("")) {
 			 
 				 Fileinfo finfo = new Fileinfo();
@@ -81,22 +92,14 @@ public class Insertspace extends HttpServlet {
 					 finfo.setStatus("Success");
 				} catch (IOException e) {
 					finfo.setStatus("fail : " +e.getMessage());
-					
 				}
 				 list.add(finfo); // 파일 정보를 List에 추가
+				filemap.put("filename", fileName);
+				fileresult = service2.insertphoto(filemap);
 			 }
 		 }
-		 	//vo.setMem_photo(fileName);
-			//int result = service.insertid(vo);
-			/*
-			 * if(result > 0) {
-			 * response.sendRedirect(request.getContextPath()+"/member/start.jsp");
-			 * 
-			 * }else { request.setAttribute("result", 3);
-			 * request.getRequestDispatcher("/member/insertmember.jsp").forward(request,
-			 * response); }
-			 */
-		
+		 
+		response.sendRedirect(request.getContextPath()+"/admin/addspace.jsp?result="+result);
 	}
 
 	private String extractFilename(Part part) {
@@ -125,3 +128,4 @@ public class Insertspace extends HttpServlet {
 	}
 
 }
+

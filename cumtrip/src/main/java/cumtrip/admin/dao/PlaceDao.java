@@ -2,6 +2,7 @@ package cumtrip.admin.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 
@@ -16,10 +17,10 @@ public class PlaceDao {
 		return dao;
 	}
 	
-	public int insertspace(SqlMapClient smc, MiddleVO vo) throws SQLException{
+	public int insertspace(SqlMapClient smc, Map<String,Object> map) throws SQLException{
 		int result = 0;
 		Object temp = null;
-		temp = smc.insert("middle.insertspace");
+		temp = smc.insert("middle.insertspace", map);
 		if(temp == null) {
 			result = 1;
 		}else {
@@ -27,5 +28,19 @@ public class PlaceDao {
 		}
 		
 		return result;
+	}
+	public List<MiddleVO> selectallspace(SqlMapClient smc) throws SQLException{
+		List<MiddleVO> list = null; 
+		list = smc.queryForList("middle.selectallspace");
+		
+		return list;
+	
+	}
+	public MiddleVO selectonespace(SqlMapClient smc,String midno) throws SQLException{
+		MiddleVO vo = null;
+		
+		vo = (MiddleVO)smc.queryForObject("middle.selectonespace" ,midno );
+		
+		return vo;
 	}
 }

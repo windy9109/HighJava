@@ -4,12 +4,11 @@ public class StayVO {
 
 	private String stay_no          ;
 	private String stay_location    ;
-	private int stay_x           ;
-	private int stay_y           ;
+	private double stay_x           ;
+	private double stay_y           ;
 	private String stay_name        ;
 	private String stay_ex          ;
 	private String stay_cate        ;
-	
 	public String getStay_no() {
 		return stay_no;
 	}
@@ -22,16 +21,16 @@ public class StayVO {
 	public void setStay_location(String stay_location) {
 		this.stay_location = stay_location;
 	}
-	public int getStay_x() {
+	public double getStay_x() {
 		return stay_x;
 	}
-	public void setStay_x(int stay_x) {
+	public void setStay_x(double stay_x) {
 		this.stay_x = stay_x;
 	}
-	public int getStay_y() {
+	public double getStay_y() {
 		return stay_y;
 	}
-	public void setStay_y(int stay_y) {
+	public void setStay_y(double stay_y) {
 		this.stay_y = stay_y;
 	}
 	public String getStay_name() {
@@ -52,5 +51,7 @@ public class StayVO {
 	public void setStay_cate(String stay_cate) {
 		this.stay_cate = stay_cate;
 	}
+	
+	
 	
 }

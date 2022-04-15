@@ -4,14 +4,14 @@ public class MiddleVO {
 private String	mid_no         ;
 private String	mid_name       ;
 private String	mid_location   ;
-private int	mid_x          ;
-private int	mid_y          ;
+private double	mid_x          ;
+private double	mid_y          ;
 private String	mid_ex         ;
 private String	mid_cost       ;
-private String	mid_web        ;
-private int	mid_time       ;
+private String	mid_web    ;
+private String	mid_time   ;
 private String	main_code      ;
-private int	mid_visit      ;
+private int	mid_visit   ;
 public String getMid_no() {
 	return mid_no;
 }
@@ -30,16 +30,16 @@ public String getMid_location() {
 public void setMid_location(String mid_location) {
 	this.mid_location = mid_location;
 }
-public int getMid_x() {
+public double getMid_x() {
 	return mid_x;
 }
-public void setMid_x(int mid_x) {
+public void setMid_x(double mid_x) {
 	this.mid_x = mid_x;
 }
-public int getMid_y() {
+public double getMid_y() {
 	return mid_y;
 }
-public void setMid_y(int mid_y) {
+public void setMid_y(double mid_y) {
 	this.mid_y = mid_y;
 }
 public String getMid_ex() {
@@ -60,10 +60,10 @@ public String getMid_web() {
 public void setMid_web(String mid_web) {
 	this.mid_web = mid_web;
 }
-public int getMid_time() {
+public String getMid_time() {
 	return mid_time;
 }
-public void setMid_time(int mid_time) {
+public void setMid_time(String mid_time) {
 	this.mid_time = mid_time;
 }
 public String getMain_code() {
@@ -78,4 +78,5 @@ public int getMid_visit() {
 public void setMid_visit(int mid_visit) {
 	this.mid_visit = mid_visit;
 }
+
 }

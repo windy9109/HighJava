@@ -23,5 +23,20 @@ public class MainDao {
 
 		return list;
 	}
+	public List<String> restaurantmain(SqlMapClient smc) throws SQLException{
+		List<String> list = null;
+		
+		list = smc.queryForList("main.restaurantmain");	
+		
+		return list;
+	}
+	public List<String> staymain(SqlMapClient smc) throws SQLException{
+		List<String> list = null;
+		
+		list = smc.queryForList("main.staymain");	
+		
+		return list;
+	}
+	
 }
 

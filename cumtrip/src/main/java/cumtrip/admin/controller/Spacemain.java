@@ -33,7 +33,6 @@ public class Spacemain extends HttpServlet {
 		MainService service = MainService.getInstance();
 		List<String> list = null;
 		list = service.spacemain();
-		System.out.println(list);
 		Gson gson = new Gson();
 		
 		String jsonData = gson.toJson(list);

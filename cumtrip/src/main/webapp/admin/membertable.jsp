@@ -17,7 +17,6 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
          <link href="css/styles.css" rel="stylesheet" />
         <script href="js/jquery.serializejson.min.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
@@ -28,7 +27,7 @@
    <script type="text/javascript">
    $(function(){
 	   $.ajax({
-		   url: '/admin/selectallmember.do', 
+		   url: '/cumtrip/selectallmember.do', 
 		   type : 'get',
 		   success : function(res){
 			   str ="";
@@ -45,7 +44,7 @@
             str +=   '</tr>';
        
 			  	})
-                
+            
                 $('#table').html(str);
 		   },
 		   error: function(xhr){
@@ -61,7 +60,7 @@
 		email = $(this).text();
 	
 		$.ajax({
-			url: '/admin/selectonemember.do',
+			url: '/cumtrip/selectonemember.do',
 			type: 'get',
 			data : {"email" : email},
 			success : function(res){
@@ -71,7 +70,7 @@
 		     str+=     '<button type="button" class="close" data-dismiss="modal">&times;</button>'               ;
 		     str+=   '</div>'                                                                                    ;
 		     str+=   '<div class="modal-body">'                                                                  ;
-		  	 str+=  '<form id="modify" action="/admin/updatemember.do?email='+res.mem_email +'" method="post" >';
+		  	 str+=  '<form id="modify" action="/cumtrip/updatemember.do?email='+res.mem_email +'" method="post" >';
 		     str+= '<table>'                                                                                     ;
 		     str+= 	'<tr>'                                                                                       ;
 		     str+= 		'<td>이메일</td>'                                                                        ;
@@ -92,7 +91,7 @@
 		     str+= 	'</tr>'                                                                                      ;
 		     str+= 	'<tr>'                                                                                       ;
 		     str+= 		'<td>가입일</td>'                                                                      ;
-		     str+= 		'<td>'+res.mem_date+'</td>'     		                                   ;
+		     str+= 		'<td>'+res.mem_since+'</td>'     		                                   ;
 		     str+= 	'</tr>'                                                                                      ;
 		     str+= 	'<tr>'                                                                                       ;
 		     str+= 		'<td>회원상태</td>'                                                                      ;
@@ -211,8 +210,11 @@
                                 </nav>
                             </div>
                         </div></div>
+                       
                 </nav>
-            </div>
+                </div>
+          
+         
             
              <div id="layoutSidenav_content">
                 <main>
@@ -225,13 +227,13 @@
                                 <i class="fas fa-table me-1"></i>
                                 회원정보조회
                             </div>
-                            
+                      
                       <div class="card-body">
                       
                       	   <table id="datatablesSimple">
                       	   	<thead>
                       	   		<tr>
-                      	   			
+                      	  
                       	   		 	<th>이메일</th>
                       	   		 	<th>이름</th>
                       	   		 	<th>주소</th>
@@ -254,7 +256,7 @@
                       	   	<tbody id='table'>
                       	  
                       	
-             		 
+             		         
                       	   	</tbody>
                       	   
                       	   </table>
@@ -262,9 +264,10 @@
                       </div>
                       </div>
                       <div id='display'></div>
-                      </main></div></div>
-
-
+                      </main>
+                      </div></div>
+                      
+                  
  		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>

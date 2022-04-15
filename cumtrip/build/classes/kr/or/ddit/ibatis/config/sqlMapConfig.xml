@@ -17,7 +17,13 @@
 		전체이름"/> -->
 	<typeAlias alias="membervo" type="cumtrip.vo.MemberVO" />
 	<typeAlias alias="middlevo" type="cumtrip.vo.MiddleVO" />
-		
+	<typeAlias alias="mainvo" type="cumtrip.vo.MainVO" />	
+	<typeAlias alias="stayvo" type="cumtrip.vo.StayVO" />	
+	<typeAlias alias="roomvo" type="cumtrip.vo.RoomVO" />	
+	<typeAlias alias="photovo" type="cumtrip.vo.PhotoVO" />
+	<typeAlias alias="s_photovo" type="cumtrip.vo.S_photoVO" />	
+	<typeAlias alias="photovo" type="cumtrip.vo.PhotoVO" />	
+	<typeAlias alias="lo_searchvo" type="cumtrip.vo.Lo_searchVO" />	
 		
 	<!-- DB와의 연결을 처리하는 부분 -->
 	<transactionManager type="JDBC">
@@ -34,6 +40,10 @@
 		="경로명/파일명.xml"/> -->
 	<sqlMap resource="kr/or/ddit/ibatis/mapping/member.xml" />
 	<sqlMap resource="kr/or/ddit/ibatis/mapping/middle.xml" />
+	<sqlMap resource="kr/or/ddit/ibatis/mapping/main.xml" />
+	<sqlMap resource="kr/or/ddit/ibatis/mapping/photo.xml" />
+	<sqlMap resource="kr/or/ddit/ibatis/mapping/stay.xml" />
+	<sqlMap resource="kr/or/ddit/ibatis/mapping/sub.xml" />
 
 </sqlMapConfig>
 

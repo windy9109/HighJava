@@ -35,4 +35,30 @@ public class MainService {
 		}
 		return list;
 	}
+	public List<String> restaurntmain(){
+		SqlMapClient smc = null;
+		List<String> list = null;
+		
+		try {
+			smc = SqlMapClientFactory.getsqlMapClient();
+			list = dao.restaurantmain(smc);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+	public List<String> staymain(){
+		SqlMapClient smc = null;
+		List<String> list = null;
+		
+		try {
+			smc = SqlMapClientFactory.getsqlMapClient();
+			list = dao.staymain(smc);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
 }

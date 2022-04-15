@@ -12,7 +12,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>addrestorant</title>
+        <title>addrestaurant</title>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
          <link href="css/styles.css" rel="stylesheet" />
         <script href="js/jquery.serializejson.min.js"></script>
@@ -26,7 +26,26 @@
 </style>    	  
   	  
    <script type="text/javascript">
-
+   
+			$(function(){
+				
+				$.ajax({
+					url: "/cumtrip/restaurantmain.do",
+					type: 'get',
+					success : function(res){
+						str = "";
+						$.each(res, function(i,v){
+						str += '<option value="'+v+'" >'+v+'</option>';
+					
+							})
+						$('#codedetail').html(str);	
+					},
+					error: function(xhr){
+						alert(xhr.status);
+					},
+					dataType: 'json'
+				})
+			})
    </script> 
 
    
@@ -119,7 +138,7 @@
              <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">관광명소 추가</h1>
+                        <h1 class="mt-4">음식점 추가</h1>
                         <ol class="breadcrumb mb-4">
                         </ol>
                         <div class="card mb-4">
@@ -130,51 +149,47 @@
                             
                       <div class="card-body">
 	                      	 <div class="table-responsive">
-	                      	 <form action="">
+	                      	 <form action="<%=request.getContextPath()%>/insertrestaurant.do" method = "post" enctype="multipart/form-data">
                         <table class="table">
                             <tbody>
                             <tr style="line-height:32px;">
-                                <td>관광명소 이름</td>
+                                <td>음식점 이름</td>
                                 <td>
-                                    <input type="text" name="name" class="form-control">
+                                    <input type="text" name="name" id="name"  class="form-control">
                                 </td>
-                                <td>관광명소 주소</td>
+                                <td>음식점 주소</td>
                                 <td>
-                                    <input type="text" name="add" class="form-control">
+                                    <input type="text" name="location"  id="location" class="form-control">
                                 </td>                        
                             </tr>
-                     
                             <tr>
                                 <td>X좌표</td>
                                 <td>
-                                    <input type="text" name="xsite" class="form-control">
+                                    <input type="text" name="xsite" id="xsite" class="form-control">
                                 </td>
                                 <td>Y좌표</td>
                                 <td>
-                                    <input type="text" name="ysite" class="form-control">
+                                    <input type="text" name="ysite" id="ysite" class="form-control">
                                 </td>
                                 
                             </tr>
                             <tr>
                                 <td>웹사이트 주소</td>
                                 <td>
-                                    <input type="text" name="siteaddr" class="form-control" > 
+                                    <input type="text" name="web" id="web" class="form-control" > 
                                 </td>
                                 <td>소요시간</td>
-                                <td><input type="text" name="spendtime" class="form-control"></td>
+                                <td><input type="text" name="spendtime" id="spendtime" class="form-control"></td>
                             </tr>
                             <tr>
                                
                                 <td>세부분류코드</td>
                                    <td> <select name ="codedetail" id="codedetail">
-                                    	<option>한식</option>
-                                    	<option>중식</option>
-                                    	<option>일식</option>
-                                    	<option>양식</option>
+                                    	
                                     </select>
                                 </td>
                                <td>사진 업로드</td>
-                               <td><input type="file" name="file"></td>
+                               <td><input type="file" name="file" id="file" multiple></td>
                             </tr>
                             <tr>
                             <td>관광명소 설명</td>
@@ -188,11 +203,12 @@
                                 </tr>
                             </tbody>
                         </table>
+                        
                         <div style ="text-align: right">
                         <input type="submit" value="등록하기" class="btn btn-success">
                         <input type="reset" value="취소" class="btn btn-danger">
-                        </div>
                         </form>
+                        </div>
                     </div>
                       </div>
                       </div>

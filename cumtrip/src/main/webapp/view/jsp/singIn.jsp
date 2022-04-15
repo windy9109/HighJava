@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,42 +20,47 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="../js/main.js"></script> 
+<script src="../js/join.js"></script> 
+
 
 <header id="header"><!-- 상단 헤더 불러오기 --></header>
 
-	<div class="container">
+	<div class="container join_con">
 	  <h2>회원가입</h2>
 	  
 	  
-	   <form class="needs-validation" novalidate>
+	   <form class="needs-validation needs-validation_wrap" novalidate>
 	  
 	    <div class="form-group">
 	      <label for="uid">아이디</label>
-	      <button type="button" class="btn btn-info mb-2 mr-sm-2" id="chk">중복검사</button>
 	      <!--  required => 필수항목
 	      placeholder="Enter username" => default text  -->
-	      <input type="text" class="form-control control-label col-sm-3" id="uid" placeholder="Enter userid" name="mem_id" required>
-	  
+	      <input type="text" class="form-control control-label col-sm-3" id="umail" placeholder="Enter userEmail" name="mem_email" required>
+	  	      <button type="button" class="btn btn-info mb-2 mr-sm-2" id="chk">중복검사</button>
+	  	      <button type="button" class="btn btn-info mb-2 mr-sm-2" id="chk_mail2" disabled>인증메일 보내기</button>
 	      
 	      <span id="idspan"></span>
 	      <div class="valid-feedback">Valid.</div>
 	      <div class="invalid-feedback">Please fill out this field.</div>
 	    </div>
+	    <div class="form-group">
+	      <label for="uid">인증번호</label>
+	      <!--  required => 필수항목
+	      placeholder="Enter username" => default text  -->
+	      <input type="text" class="form-control control-label col-sm-3" id="mail_number" placeholder="인증번호입력" name="mail_number" required>
+	      
+	      <span id="idspan"></span>
+	      <div class="valid-feedback">Valid.</div>
+	      <div class="invalid-feedback">Please fill out this field.</div>
+	    </div>
+	    
+	    
 	  
 	    <div class="form-group">
 	      <label for="uname">이름</label>
 	      <!--  required => 필수항목
 	      placeholder="Enter username" => default text  -->
 	      <input type="text" class="form-control control-label col-sm-3" id="uname" placeholder="Enter username" name="mem_name" required>
-	      <div class="valid-feedback">Valid.</div>
-	      <div class="invalid-feedback">Please fill out this field.</div>
-	    </div>
-	    <!-- 생년월일 -->
-	    <div class="form-group">
-	      <label for="day">생년월일</label>
-	      <!--  required => 필수항목
-	      placeholder="Enter username" => default text  -->
-	      <input type="data" class="form-control control-label col-sm-3" id="birth" placeholder="19999 04 15" name="mem_birth" required>
 	      <div class="valid-feedback">Valid.</div>
 	      <div class="invalid-feedback">Please fill out this field.</div>
 	    </div>
@@ -65,64 +72,44 @@
 	      <div class="valid-feedback">Valid.</div>
 	      <div class="invalid-feedback">Please fill out this field.</div>
 	    </div>
-	    <div class="form-group form-check">
-	      <label class="form-check-label">
-	        <input class="form-check-input" type="checkbox" name="remember" required> I agree on blabla.
-	        <div class="valid-feedback">Valid.</div>
-	        <div class="invalid-feedback">Check this checkbox to continue.</div>
-	      </label>
+	    <div class="form-group">
+	      <label for="pwd">비밀번호 확인</label>
+	      <input type="password" class="form-control control-label col-sm-3" id="pwd2" placeholder="Enter password" required>
+	      <div class="valid-feedback">Valid.</div>
+	      <div class="invalid-feedback">Please fill out this field.</div>
+	   	  <div class="passMiss"></div>
 	    </div>
+
 	    <!-- 휴대폰  -->
 	    <div class="form-group">
 	      <label for="phon"> 휴대폰번호 </label>
 	      <!--  required => 필수항목
 	      placeholder="Enter username" => default text  -->
-	      <input type="text" class="form-control control-label col-sm-3" id="phon" placeholder="010-1234-5678" name="mem_phon" required>
-	      <div class="valid-feedback">Valid.</div>
-	      <div class="invalid-feedback">Please fill out this field.</div>
-	    </div>
-	    <!--이메일 -->
-	    <div class="form-group">
-	      <label for="mail">이메일</label>
-	      <!--  required => 필수항목
-	      placeholder="Enter username" => default text  -->
-	      <input type="text" class="form-control control-label col-sm-3" id="mail" placeholder="Enter username" name="mem_mail" required>
+	      <input type="text" class="form-control control-label col-sm-3" id="phon" placeholder="010-1234-5678" name="mem_tel" required>
 	      <div class="valid-feedback">Valid.</div>
 	      <div class="invalid-feedback">Please fill out this field.</div>
 	    </div>
 	    <!--우편번호 -->
-	    <div class="form-group">
-	      <label for="uzip">우편번호</label>
-	      <!--  required => 필수항목
-	      placeholder="Enter username" => default text  -->
-	      <button type="button" id="zipserach" class="btn btn-info mb-2 mr-sm-2" id="zipsearch">번호검색</button>
-	      <button type="button" id="zipserach" class="btn btn-info mb-2 mr-sm-2" data-toggle="modal" data-target="#myModal"> 번호검색modal </button>
-	      <input type="text" class="form-control control-label col-sm-3" id="uzip" placeholder="Enter username" name="mem_zip" required>
-	      
-	      <div class="valid-feedback">Valid.</div>
+	 	<div class="form-group">
+	 		<label for="uzip">우편번호</label>
+	 		
+	 	 	<input id="member_post"  type="text" class="form-control control-label col-sm-3" placeholder="Zip Code" readonly onclick="findAddr()">
+			<button type="button" id="zipserach" class="btn btn-info mb-2 mr-sm-2" data-toggle="modal" data-target="#myModal" onclick="findAddr()"> 번호검색 </button>
+	 	 </div>
+	 	 <div class="form-group">
+	 	 	<label for="uadd1">주소</label>
+	  		<input id="member_addr" type="text" class="form-control control-label col-sm-3" placeholder="Address" readonly>
+	  	 </div>
+	  	<div class="form-group">
+	    <label for="add3">상세주소</label>
+	  		<input type="text" class="form-control control-label col-sm-3" placeholder="Detailed Address" id="member_addr2" required>
+	  		<div class="valid-feedback">Valid.</div>
 	      <div class="invalid-feedback">Please fill out this field.</div>
-	    </div>
-	    <!-- 주소 -->
-	    <div class="form-group">
-	      <label for="uadd1">주소</label>
-	      <!--  required => 필수항목
-	      placeholder="Enter username" => default text  -->
-	      <input type="text" class="form-control control-label col-sm-3" id="uadd1" placeholder="Enter username" name="mem_add1" required>
-	      <div class="valid-feedback">Valid.</div>
-	      <div class="invalid-feedback">Please fill out this field.</div>
-	    </div>
-	   <!--상세주소 -->
-	    <div class="form-group">
-	      <label for="add3">상세주소</label>
-	      <!--  required => 필수항목
-	      placeholder="Enter username" => default text  -->
-	      <input type="text" class="form-control control-label col-sm-3" id="add3" placeholder="Enter username" name="mem_add2" required>
-	      <div class="valid-feedback">Valid.</div>
-	      <div class="invalid-feedback">Please fill out this field.</div>
-	    </div>
+	  	</div>
+	    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	    	
 	    
-	    
-	    <button type="submit" class="btn btn-primary btn-sm"  >Submit</button>
+	    <button type="submit" class="btn btn-primary btn-sm btn-block joincheck" id="joincheck" >Submit</button>
 	    <span id="joinspan"></span>
 	    
 	  </form>
@@ -130,37 +117,12 @@
 	
 	
 	
-	<!-- The Modal -->
-	<div class="modal" id="myModal">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	
-	      <!-- Modal Header -->
-	      <div class="modal-header">
-	        <h4 class="modal-title">우편번호 찾기</h4>
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	      </div>
-	
-	      <!-- Modal body -->
-	      <div class="modal-body">
-	        	<input type="text" id="dong">
-				<input type="button" value="확인" id="btn1">
-				<div id="result1"></div>
-	      </div>
-	
-	      <!-- Modal footer -->
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-	      </div>
-	
-	    </div>
-	  </div>
-	</div>
+
 	
 	
 	<script>
 	// Disable form submissions if there are invalid fields
-	(function() {
+	$(function() {
 	  'use strict';
 	  window.addEventListener('load', function() {
 	    // Get the forms we want to add validation styles to
@@ -177,7 +139,7 @@
 	      }, false);
 	    });
 	  }, false);
-	})();
+	});
 	</script>
 	
 	<footer id="footer"><!-- 하단불러오기 --></footer>

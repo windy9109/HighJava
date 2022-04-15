@@ -4,7 +4,8 @@ public class S_photoVO {
 
 	private String spho_no     ;
 	private String spho_path   ;
-	private String mid_no      ;
+	private String stay_no      ;
+	private String room_no     ;
 	
 	public String getSpho_no() {
 		return spho_no;
@@ -18,17 +19,17 @@ public class S_photoVO {
 	public void setSpho_path(String spho_path) {
 		this.spho_path = spho_path;
 	}
-	public String getMid_no() {
-		return mid_no;
-	}
-	public void setMid_no(String mid_no) {
-		this.mid_no = mid_no;
-	}
 	public String getStay_no() {
 		return stay_no;
 	}
 	public void setStay_no(String stay_no) {
 		this.stay_no = stay_no;
 	}
-	private String stay_no     ;
+	public String getRoom_no() {
+		return room_no;
+	}
+	public void setRoom_no(String room_no) {
+		this.room_no = room_no;
+	}
+	
 }
