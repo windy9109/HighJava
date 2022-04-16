@@ -13,30 +13,23 @@ $(function() {
 	//리스트처리(자바의 List에서는 배열로 변환한다.)
 	$("#listBtn").on("click", function() {
 		$.ajax({
-			url: "<%= request.getContextPath()%>/memberList.do",
+			url: "<%=request.getContextPath()%>/memberList.do",
 			type: "get",
 		//	data: "choice=list",
 			success: function(data) { //응답데이터 처리 함수
-			/*
-				[
-					{ "num":100, "name":"홍길동", "tel":"010-1234-5678" }
-					{ "num":200, "name":"홍길서", "tel":"010-1234-0987" }
-					{ "num":300, "name":"홍길남", "tel":"010-1234-8765" }
-				]
-			*/
-				let str = "리스트 데이터";
-				
+				str = "<table border='1'><tr><td colspan='5' style='text-align: right;'><input type='button' value='회원추가' id='insert' name='insert'></td></tr>";
+				str += "<tr><td>아이디:</td><td>이름:</td><td>패스워드:</td><td>전화:</td><td>주소:</td></tr>";
+			
 				$.each(data, function(i,v) {
-					str += "<hr>";
-					str += i + "번째 자료<br>";
-					str += "번호: "+ v.mem_id;
-					str += "이름: "+ v.mem_name;
-					str += "전화: "+ v.mem_pass;
-					str += "번호: "+ v.mem_tel;
-					str += "이름: "+ v.mem_addr;
-					str += "전화: "+ v.mem_photo;
+					str += "<tr><td><a href='<%=request.getContextPath()%>/memberList.jsp'>"+v.mem_id+"</a></td>";
+					str += "<td>"+v.mem_name+"</td>";
+					str += "<td>"+v.mem_pass+"</td>";
+					str += "<td>"+v.mem_tel+"</td>";
+					str += "<td>"+v.mem_addr+"</td>";
 					
 				})
+				
+				str += "</table>";
 				$("#result").html(str);
 			},
 			error: function(vhr) {
@@ -54,7 +47,7 @@ $(function() {
 <body>
 
 <input type="button" value="확인" id="listBtn">
-<div class="result"></div>
+<div id="result"></div>
 
 
 
