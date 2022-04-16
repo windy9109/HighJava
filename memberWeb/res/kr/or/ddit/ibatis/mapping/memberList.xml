@@ -6,7 +6,7 @@
 	
 	
 	<sqlMap namespace="memberList">
-		<select id="selectList" resultClass="MemberWebVo">
+		<select id="selectList" resultClass="map">
 			select * from mymember
 		</select>
 	
