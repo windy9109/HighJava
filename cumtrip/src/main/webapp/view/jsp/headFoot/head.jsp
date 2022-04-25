@@ -1,0 +1,268 @@
+<%@page import="cumtrip.vo.MemberVO"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<link rel="stylesheet" href="<%= request.getContextPath() %>/view/css/font.css">
+
+<script>
+$(document).ready(function(){
+
+    var navHeight = $(".haederTop_wrapBox0").height()*2; 
+    //navHeight 의 높이를 구하기
+
+    $(".haederTop_wrapBox0").css('background', '#fff');
+    $(".haederTop_wrapBox0").css("position", "inherit");
+    $("#top_login").css("color","#000");
+    $("#SignUp").css("color","#000");
+    $(".logolink img").attr("src","/cumtrip/view/images/logo.svg");
+    //스크롤시 나타날 객체 미리 숨기기
+
+    $(window).scroll(function(){  // 윈도우 스크롤 기능 작동
+        var rollIt = $(this).scrollTop() >= navHeight; 
+// 스크롤의 정도가 navHeight 의 값을 넘었을 때 == 윈도우 스크롤의 값이 navHeight 의 높이와 같거나 크다
+
+/*
+scrollTop 은 윈도우에서 스크롤의 위치가 가장 상위에 있다는 의미로 해석
+스크롤의 위치가 화면 아래일수록 == scrollTop 의 값이 커짐
+*/
+
+    if(rollIt){ 
+		//윈도우 스크롤 기능의 값이 navHeight 의 높이와 같거나 크면
+            $(".haederTop_wrapBox0").css("position", "fixed").css('background', '#FF9614');
+            $("#top_login").css("color","#fff");
+            $("#SignUp").css("color","#fff");
+            $(".logolink img").attr("src","/cumtrip/view/images/logo3.png");
+        }
+        else{
+            $(".haederTop_wrapBox0").css('background', '#fff').css("position", "inherit");
+            $("#top_login").css("color","#000");
+            $("#SignUp").css("color","#000");
+            $(".logolink img").attr("src","/cumtrip/view/images/logo.svg");
+        }
+    });
+    
+});
+</script>
+
+<style>
+
+.bs-example {
+	font-family: sans-serif;
+	position: relative;
+	margin: 100px;
+}
+.typeahead, .tt-query, .tt-hint {
+	outline: medium none;	
+}
+
+.typeahead:focus {
+	border: 2px solid #0097CF;
+}
+
+.tt-hint {/* 입력창에 나오는 예시 검색어 색상변경 가능 */
+	color: #999999; 
+ 
+}
+.tt-menu { /* 입력하면 아래 지역별 입력창 폼  */
+	background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
+    margin-top: 5px;
+    padding: 5px 10px;
+    width: 100%;
+ 
+}
+.tt-suggestion { /* 자동완성 창  */
+	font-size: 20px;  
+    padding: 3px 20px;
+    font-weight: bold;
+    text-align: left;
+    border-bottom: 1px solid #dae0e5;
+}
+.tt-suggestion:hover {  /* 자동완성 창 마우스 올리면 효과 */
+	cursor: pointer;
+	background-color: #E0E0E0;
+	border-radius: 30px;
+}
+
+
+.mainsch{ /*검색 창 자식  */ 
+    border-style: none;
+    border-radius: 80px;
+    line-height: 50px;
+    padding-left: 40px;
+    padding-right: 17px;
+    width: 400px;
+        border: 2px solid #000;
+        box-shadow: none;
+}
+.btn1{
+    margin: 0;
+}
+.btn1 > img{
+    margin: 0;
+}
+
+.icon {/* 검색창 안의 돋보기 모양   */
+    position: absolute;
+    margin-top: 13px;
+    z-index: 1;
+    background-image: none;
+    right: 40px;
+}    
+
+.btn1{ /* 돋보기 배경  */
+	background: url(/images/돋보기.png) no-repeat;
+	border: 0;
+}
+.sub_search01{
+
+}
+.scrollNav{width:100%; height:50px; position:absolute; left:0; top:0; background-color:lightblue; text-align:center; line-height:50px; color:#fff; font-weight:600;}
+
+
+</style>
+
+
+<script> 
+ $(document).ready(function(){
+	    var citys = [];
+		$.ajax({
+	    	url:'<%=request.getContextPath()%>/SearchSido.do' ,
+	    	type:'post',
+	    	success: function(res){
+	    		
+	    	$.each(res, function(i,v){	
+	    		 citys.push(''+v.sido+" "+v.gugun+'');
+	    	  })
+
+	    	  
+	    	  citys = new Bloodhound({
+	    	        datumTokenizer: Bloodhound.tokenizers.whitespace,
+	    	        queryTokenizer: Bloodhound.tokenizers.whitespace,
+	    	        local: citys 
+	    	       
+	    	    });
+	    	
+	    	  $('.typeahead').typeahead(null, {
+	    	         name: 'countries',
+	    	         limit: 100,    // 입력하면 아래에 나오는 예시 갯수 
+	    	         minLength: 1, // 검색창의 자동완성 기능 글자 나오는 설정 (숫자가 올라갈수록 숫자만큼 글자를 입력해야 미리보기가 나옴)
+	    	         source: citys
+	    	         
+	    	     });
+	    	  
+	    	
+	    	  	    	   
+	    	},
+	    	error: function(xhr){
+	    		alert('상태 :'+ xhr.status)
+	    	},
+	    	dataType:'json'
+	    		
+	    })
+	  
+		
+	   
+	    
+	   $('#submit').on('click',function(){
+		   
+		  addr =  $('#search').val();
+		  location.href= '<%=request.getContextPath()%>/view/jsp/submain.jsp?addr='+addr+'';
+		  
+     
+  })
+  
+}); 
+</script> 
+
+<div class="haederTop_wrapBox0">
+<div class="haederTop haederTop_top">
+	<a href="<%= request.getContextPath() %>/view/jsp/index.jsp" class="logolink"><img src="<%= request.getContextPath() %>/view/images/logo.svg" ></a>
+	<nav class="navbar navbar-expand-sm navbar-info">
+<!-- 	    <iframe src="/cumtrip/view/jsp/index.jsp" style="width:90%" height="500" scrolling="auto">
+	    </iframe> -->
+	    
+	         <article>
+	   <div class="box" style="display:table;">
+	    <div class="backgroundimg">
+	     <form id=sub_search01>
+	      <span class="icon">
+	      <button type="button" id="submit" class="btn1"><img  src="<%= request.getContextPath() %>/view/images/돋보기.png" style="width: 23px;
+   		   height: 23px;">
+	      </button>
+	      </span>
+		  <input type="text"  id="search" name="search" autocomplete="off" spellcheck="false"  class="mainsch typeahead tt-query" 
+		  placeholder="어디로 가시나요?"> 	
+	     </form>
+		</div>
+	   </div>
+	  </article>
+	  
+	  
+	</nav>
+
+<% 
+	//JSP문서에서 세션은 'session'이라는 이름으로 이미 생성되어 있다.
+	MemberVO loginMemVo = (MemberVO)session.getAttribute("loginMember");
+
+%>
+
+<div class="login_wrap_TopRight">
+<!-- 로그인시작 -->
+<% if(loginMemVo == null || loginMemVo.getMem_email().length() == 0 ){ //로그인관련 세션이 없을때 %>
+<!-- 로그인시작 -->
+	<a data-toggle="modal" href="#loginModal" id="top_login" class="f4">LOGIN</a>
+	  <div class="modal fade" id="loginModal" role="dialog">
+	   <div class="modal-dialog">
+	    <div class="modal-content" style="border-radius: 30px 30px 30px 30px;">
+	     <div class="modal-header" style="border-radius: 30px 30px 0px 0px;">
+	      <h1 class="modal-title f4" align="center" style="color:white !important; font-size:1.3em">로그인</h1>
+	      <button type="button" class="close" data-dismiss="modal">×</button>
+	
+	     </div>
+	     <div class="modal-body">
+	         <!-- 본문시작 -->
+		      <form id="login_form" action="<%= request.getContextPath() %>/sessionLogin.do" method="get">
+ <input type= "hidden" name="url" value="<%=(String)session.getAttribute("url") %>">		      	
+<label for="id" class="f4">ID</label><input type="text" class="form-control control-label col-sm-3" id="id" name="memid" placeholder="id">
+		      	<label for="pass" class="f4">PASS</label><input type="password" class="form-control control-label col-sm-3" id="pass" name="mempass" placeholder="pass"><br>
+		      	<input type="submit" value="확인" id="login_button" class="btn btn-dark" style="background-color: #FF9614;"><br><br>
+		      	<a href="<%= request.getContextPath() %>/view/jsp/memberLogin/findID.jsp" class="f4 login_qwe1" style="text-decoration: underline;" >아이디 찾기</a>
+		      	<a href="<%= request.getContextPath() %>/view/jsp/memberLogin/findPass.jsp" class="f4 login_qwe1" style="text-decoration: underline;" >비밀번호 찾기</a>
+		      	<a href="<%= request.getContextPath() %>/view/jsp/memberLogin/singIn.jsp" class="f4 login_qwe1" style="text-decoration: underline;" >회원가입</a>
+		      </form>
+	     </div>
+	    </div>
+	   </div>
+	  </div>
+	  
+	  <!-- 로그인 마침 -->
+  
+  	<a href="<%= request.getContextPath() %>/view/jsp/memberLogin/singIn.jsp" class="topButton f4" id="SignUp">회원가입</a>
+  	
+<%	}else{  //로그인관련 세션이 있을때(로그인이 되었을때)
+	
+%>
+	<h3 class="successID f4"><%= loginMemVo.getMem_email() %>님 반갑습니다</h3>
+<% if( loginMemVo.getMem_email().equals("admin")) {%>
+	<a href="<%= request.getContextPath() %>/admin/index.html" class="mypageButton f4">관리자</a>
+<% } %>
+<% if( !loginMemVo.getMem_email().equals("admin")) {%>
+	<a href="<%= request.getContextPath() %>/view/jsp/mypage/mypage_index.jsp" class="mypageButton f4">마이페이지</a>
+<% } %>
+
+	<a href="<%= request.getContextPath() %>/sessionLogout.do" class="logoutButton f4">로그아웃</a>
+<%	
+}
+%>
+</div>
+  	
+</div>
+</div>
+
+
+
+
+	

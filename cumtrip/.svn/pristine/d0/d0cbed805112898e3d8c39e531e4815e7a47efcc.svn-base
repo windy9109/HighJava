@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap 
+	PUBLIC "//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+ <sqlMap  namespace="pay">
+	<insert id="insertcart" parameterClass="cartvo">
+		insert into cart (cart_no, cart_in, cart_out,cart_number,mem_email,room_no,stay_no, cart_check)
+		values('CA001'||cart_seq.nextval, #cart_in#,#cart_out#, #cart_number#, #mem_email#,#room_no#,#stay_no# , 'Y')
+	</insert>
+	<insert id="insertpay" parameterClass="map">
+		insert into pay (pay_no, pay_date,pay_price,cart_no,pway_code,pay_status)
+		values ('P000'||pay_seq.nextval, sysdate, #pay_price#,(select cart_no from cart where room_no = #room_no# and stay_no = #stay_no# and cart_in = #cart_in# and cart_out = #cart_out#), '1','Y')
+	</insert>
+	<insert id="inserttemppay" parameterClass="map">
+		insert into pay (pay_no, pay_date,pay_price,cart_no,pway_code,pay_status)
+		values ('P000'||pay_seq.nextval, sysdate, #pay_price#,(select cart_no from cart where room_no = #room_no# and stay_no = #stay_no# and cart_in = #cart_in# and cart_out = #cart_out#), '4','N')
+	</insert>
+ </sqlMap>

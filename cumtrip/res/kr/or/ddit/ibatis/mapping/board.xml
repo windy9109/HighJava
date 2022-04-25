@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap 
+	PUBLIC "//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+    
+    
+ <sqlMap namespace="board">
+ 
+ 	<sql id="dynamicCondition">
+ 		<dynamic prepend=" where">
+ 			<isNotEmpty property="stype" prepend=" and ">
+ 				<isNotEmpty property="sword">
+ 					$stype$ like '%'||#sword#||'%'
+ 				</isNotEmpty>
+ 			</isNotEmpty>
+ 		</dynamic>
+ 	</sql>
+ 
+   	<select id ="selectList" resultClass="boardVo" parameterClass="map">
+         select A.* from (
+	      select rownum as rnum, B.*  from (
+	                select distinct x.qa_title, x.qa_content, to_char(x.qa_date, 'yyyy-mm-dd') as qa_date, x.qa_no, x.mem_email, x.q_number, v.qa_no as ad_qa_no
+				        from q_admin x left outer join a_admin v 
+				        on x.qa_no = v.qa_no where x.mem_email = #mem_email# order by x.qa_no desc 
+	          <include refid = "dynamicCondition"/>
+	          ) b
+		   <![CDATA[
+		      where rownum <= #end#) A 
+		   where A.rnum >=#start#
+		  ]]>
+   	</select>
+   	
+	
+   	<select id="totalCount" parameterClass="map" resultClass="int">
+   		select count(*) from q_admin
+   		<include refid = "dynamicCondition"/>
+   	</select>
+   	
+   	
+   	<!-- 게시글삭제 -->
+   	<delete id="deleteBoard" parameterClass="boardVo">
+   		 delete from q_admin where q_number=#q_number# and mem_email=#mem_email#
+   	</delete>
+
+
+	<update id ="updateHit" parameterClass="boardVo">
+		update q_admin set qa_title=#qa_title#, qa_content=#qa_content# where q_number=#q_number# and mem_email=#mem_email#
+	</update>
+	
+ 	<select id ="selectoneq" parameterClass="string" resultClass="boardVo">
+   		
+   	select * from q_admin where qa_no = #data#
+   	</select>
+
+      	<insert id ="uploadquestion" parameterClass="a_adminvo">
+  		 		insert into a_admin (ad_content, ad_date ,ad_no,qa_no,ad_number)
+  		 		values(#ad_content#,sysdate, 'AD000' || ad_admin_seq.nextval, #qa_no#, ad_number_seq.nextval )
+
+   	</insert>  
+
+
+    	<insert id ="insertQnaMypage" parameterClass="boardVo">
+  		 		insert into q_admin (qa_title, qa_content, qa_date, qa_no, mem_email, q_number)
+  		 		values(#qa_title#, #qa_content#, sysdate, 'q000' || q_admin_num_seq.nextval, #mem_email#, q_admin_num_seq.nextval )
+
+   	</insert> 
+
+
+
+ </sqlMap>

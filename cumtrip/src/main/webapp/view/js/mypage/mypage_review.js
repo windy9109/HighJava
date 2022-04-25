@@ -1,0 +1,67 @@
+$(function(){
+	
+	$.ajax({
+		url: '/cumtrip/MypageReview.do',
+		type: 'post',
+		success: function(res){
+			
+				str = "";
+				star = "";
+				if(res.status == "0"){
+					str += '<h5>데이터가 없습니다</h5>';
+					$('.mypage_boxReview_span').html(str);
+				}else{
+					$.each(res, function(i, v){
+					
+					
+					
+						number_no = v.mid_no
+						number_no_sli = number_no.slice(0,1);
+
+
+					    if(number_no_sli != "S"){
+							str += '<li class="mypage_boxReview_li">';
+							str += '	<div class="m_Review_no"><a href="/cumtrip/view/jsp/detailpage.jsp?midno='+v.mid_no+'">'+v.stay_name+'</a></div>';
+							str += '	<div class="m_Review_title f4"><a href="/cumtrip/view/jsp/detailpage.jsp?midno='+v.mid_no+'">'+v.sre_title+'</a></div>';
+							str += '	<div class="m_Review_date f4">'+v.sre_date+'</div>';
+							str += '<div class="m_Review_star">'+v.sre_point+'점</div>';
+							str += '</li>';
+						}    
+						
+						if(number_no_sli == "s" || number_no_sli == "S"){
+							str += '<li class="mypage_boxReview_li">';
+							str += '	<div class="m_Review_no f4"><a href="/cumtrip/view/jsp/detailpagestay.jsp?stayno='+v.mid_no+'">'+v.stay_name+'</a></div>';
+							str += '	<div class="m_Review_title f4"><a href="/cumtrip/view/jsp/detailpagestay.jsp?stayno='+v.mid_no+'">'+v.sre_title+'</a></div>';
+							str += '	<div class="m_Review_date f4">'+v.sre_date+'</div>';
+							str += '<div class="m_Review_star">'+v.sre_point+'점</div>';
+							str += '</li>';
+						}                                                          
+							
+							
+					}) 
+					
+				$('.mypage_boxReview_span').html(str);	
+				
+				}	                                                                      
+	
+				
+			
+		},
+		error: function(xhr){
+			if(xhr.status == 500){ 
+				alert("로그인 상태가 아닙니다.");
+				location.href = "../index.jsp" 
+				
+				}
+		},
+		dataType: 'json'
+	})
+	
+
+	
+	
+	
+	
+	
+	
+})

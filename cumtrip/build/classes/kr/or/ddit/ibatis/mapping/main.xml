@@ -1,23 +1,131 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE sqlMap 
-	PUBLIC "//iBATIS.com//DTD SQL Map 2.0//EN"
-	 "http://www.ibatis.com/dtd/sql-map-2.dtd">
+	PUBLIC "//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
  <sqlMap  namespace="main">
 	<select	id='spacemain' resultClass='string'>
 		select main_cate from main where main_name = '관광명소'
 	</select>
+	
 	<select	id='restaurantmain' resultClass='string'>
 		select main_cate from main where main_name = '음식점'
 	</select>
+	
 	<select	id='staymain' resultClass='string'>
 		select main_cate from main where main_name = '숙소'
 	</select>
 		
-	<select id='sidomain' parameterClass='string' resultClass='Lo_searchVO.java'>
-	  select * from LO_SEARCH 
-           where sido like '#sido# '||'%'	
-	</select> 	
+
+	<select id='sidomain' resultClass='lo_searchvo'>
+	  select * from lo_search	
+	</select>
+	
+	<select id="maintourlist" resultClass="printvo">
+		select * from(select a.main_cate, b.mid_name, c.photo_path, b.mid_no, rownum as rnum
+		from main a, middle b,photo c 
+		where a.main_code = b.main_code
+		and b.mid_no = c.mid_no
+		and b.mid_no like 'T'||'%'
+		and a.main_cate = '랜드마크')
+		<![CDATA[	
+        where rnum >= 0  
+        and rnum <= 9  ]]>
+        order by 1
+	</select> 
+	
+	
+	<select id="maintourlist2" resultClass="printvo">
+		select * from(select a.main_cate, b.mid_name, c.photo_path, b.mid_no, rownum as rnum
+		from main a, middle b,photo c 
+		where a.main_code = b.main_code
+		and b.mid_no = c.mid_no
+		and b.mid_no like 'T'||'%'
+		<![CDATA[	
+		and a.main_cate <> '랜드마크'
+        and a.main_cate <> '자연공원'
+        and a.main_cate <> '쇼핑')
+        where rnum >= 0  
+        and rnum <= 9  ]]>
+        order by 1
+	</select> 
+
+
+	<select id="maintourlist3" resultClass="printvo">
+		select * from (select a.main_cate, b.mid_name, c.photo_path, b.mid_no, rownum as rnum
+		from main a, middle b, photo c 
+		where a.main_code = b.main_code
+		and b.mid_no = c.mid_no
+		and b.mid_no like 'T'||'%'
+		<![CDATA[	
+		and a.main_cate <> '랜드마크'
+        and a.main_cate <> '박물관'
+        and a.main_cate <> '레저'
+        and a.main_cate <> '투어')
+        where rnum >= 0  
+        and rnum <= 9  ]]>
+        order by 1
+	</select> 
+	
+	
+	<select id="mainrandomtourlist" resultClass="printvo">
+		   select  a.mid_no,(select c.photo_path from photo c where c.mid_no = a.mid_no and rownum<![CDATA[ <=1)]]>
+          as photo_path,b.main_cate,a.mid_name
+          from middle a, main b
+         where a.main_code = b.main_code
+         order by dbms_random.value
+	</select>
+	
+	
+	<select id="mainrectourlist" resultClass="printvo">
+	    select  a.mid_no,(select c.photo_path from photo c where c.mid_no = a.mid_no and rownum<![CDATA[ <=1)]]>
+	       as photo_path,b.main_cate,a.mid_name
+          from middle a, main b
+         where a.main_code = b.main_code
+         order by a.MID_VISIT desc
+	</select>
+	
+	<select id="mattractcheck" resultClass="string" parameterClass="string">
+	
+        
+        select * from (select a.mem_email
+           from member a, mattract b 
+          where b.mem_email = #b.mem_email#
+           union all 
+         select null as mem_email 
+           from dual 
+          where not exists( select c.mem_email
+           from member c, mattract d 
+         where d.mem_email = #d.mem_email#
+         ))
+         where rownum <![CDATA[ <=1 ]]>
+    
+	</select> 
+	
+	
+	<insert id="mattractinsert" parameterClass="mattractvo">
+		 insert into mattract(mem_email,attr_no)
+  		  values(#mem_email#,#attr_no#)
+	</insert>
+	
+	
+	
+	<select id="mainattrtourlist" resultClass="printvo" parameterClass="string" >
+	 select b.MID_NAME , b.mid_no, (
+			 select d.photo_path 
+	 		   from photo d 
+	 		  where d.mid_no = b.mid_no and rownum <![CDATA[ <=1 ]]>) as photo_path
+                  ,c.main_cate
+       from mattract a, middle b, main c 
+      where a.attr_no= b.attr_no
+        and c.main_code = b.main_code
+        and b.attr_no in (select attr_no from mattract where mem_email =#mem_email# and rownum <![CDATA[ <=1 ]]>)
+	
+	</select>
+	
+	
+	
+	
 		
  </sqlMap>

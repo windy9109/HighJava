@@ -1,0 +1,53 @@
+$(function(){
+	
+		$.ajax({
+		url: '/cumtrip/Mypage_Pay.do',
+		type: 'post',
+		success: function(res){
+			
+				str = "";
+				if(res.status == "0"){
+					str += '<h5>데이터가 없습니다</h5>';
+					$('.mypage_payBox_span').html(str);
+				}else{
+					$.each(res, function(i, v){
+					
+						if(v.pay_date != "null"){ pay_date = v.pay_date }else{ pay_date = "-" }
+						if(v.pway_name != "null"){ pway_name = v.pway_name }else{ pway_name = "-" }
+						if(v.pay_status == "null"){ pay_status = '결제전<br><a href="#" class="mypage_PayBottom" sytle="color:white !important;">결제하기</a>' }else{ pay_status = "-" }
+						if(v.cart_check == "n" || v.cart_check == "N"){ cart_check = '-' }
+						else if(v.cart_check == "y" || v.cart_check == "Y"){ cart_check = '<a href="#" class="mypage_PayBottom" sytle="color:white !important;">결제취소</a>'} 
+						else{ cart_check = '결제취소불가' }
+						
+						
+						str += '<li class="mypage_boxPay_li">';
+						str += '	<div class="m_Pay_no f4">'+v.cart_no+'</div>';
+						str += '	<div class="m_Pay_stay_name f4">'+v.stay_name+'('+v.room_grade+')</div>';
+						str += '	<div class="m_Pay_date f4">'+pay_date+'</div>';
+						str += '	<div class="m_Pay_cart_in f4">'+v.cart_in+'~'+v.cart_out+'</div>';
+						str += '	<div class="m_Pay_pway_name f4">'+pway_name+'</div>';
+						str += '	<div class="m_Pay_status f4">'+pay_status+'</div>';
+						str += '	<div class="m_Pay_2 f4">';
+						str += cart_check;
+						str += '	</div>';
+						str += '</li>';
+		                                                                                 
+				
+					}) 
+				}	                                                                      
+	
+				$('.mypage_payBox_span').html(str);	
+			
+		},
+		error: function(xhr){
+			if(xhr.status == 500){ 
+				alert("로그인 상태가 아닙니다.");
+				location.href = "../index.jsp" 
+				
+				}
+		},
+		dataType: 'json'
+	})
+	
+	
+})

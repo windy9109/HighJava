@@ -1,0 +1,842 @@
+<%@page import="org.apache.catalina.connector.Request"%>
+<%@page import="cumtrip.vo.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+	<%
+	
+	 String url = request.getRequestURI();
+	
+	 	session.setAttribute("url", url);
+	 
+	 %>
+<script src="https://kit.fontawesome.com/0661566fd2.js"
+	crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<title>Lodding..</title>
+<link rel="shortcut icon" type="image/x-icon" href="<%=request.getContextPath()%>/view/images/titleLogo.png">
+ <link rel="stylesheet" href="/cumtrip/view/css/main.css"> 
+ <link rel="stylesheet" href="../css/font.css"> 
+ 
+ <script src="https://kit.fontawesome.com/0661566fd2.js" crossorigin="anonymous"></script>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>  -->
+<script src="/cumtrip/view/js/main_m.js"></script> 
+<script src="/cumtrip/view/js/sub_tour.js"></script>
+  <!-- 로딩중 -->
+<link rel="stylesheet" href="/cumtrip/view/css/fakeLoader.css">
+<script src="/cumtrip/view/js/fakeLoader.js"></script>
+<!--  메인 인기순 추천 여행지 -->
+<script src="/cumtrip/view/js/typeahead.bundle.js"></script>
+
+
+
+<script>
+    document.title = "Cum trip" ;
+</script>
+
+<style>
+
+.f1{
+font-family: 'Nanum Gothic' !important;
+    color: black;
+    letter-spacing: -2px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.carousel-indicators li{
+    display: inline-block;
+}
+
+.f4_box1{
+
+}
+
+.index_from0{
+width: 30%;
+    float: left;
+    margin: 0 10px;
+}
+
+.bs-example {
+	font-family: sans-serif;
+	position: relative;
+	margin: 100px;
+}
+.typeahead, .tt-query, .tt-hint { 	
+	outline: medium none;	
+}
+
+.typeahead:focus {
+
+	  box-shadow: 0 0 0 3px #fff inset; 
+}
+
+.tt-hint {/* 입력창에 나오는 예시 검색어 색상변경 가능 */
+	color: #999999; 
+}
+.tt-menu { /* 입력하면 아래 지역별 입력창 폼  */
+	background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
+    margin-top: 5px;
+    padding: 5px 10px;
+    width: 100%;
+    box-shadow: 2px 3px 5px 0px;
+}
+.tt-suggestion { /* 자동완성 창  */
+	font-size: 20px;  
+    padding: 3px 20px;
+    font-weight: bold;
+    text-align: left;
+    border-bottom: 1px solid #dae0e5;
+}
+.tt-suggestion:hover {  /* 자동완성 창 마우스 올리면 효과 */
+	cursor: pointer;
+	background-color: #E0E0E0;
+	border-radius: 30px;
+}
+
+
+.backgroundimg{ /* 검색창 배경 설정    */
+background-image: url(https://static.tacdn.com/img2/brand/home/homemar2022_dt_trans.png);
+    background-size: cover;
+    height: 320px;
+    display: table-cell;
+    vertical-align: middle;
+    background-position: center;
+  
+}
+.twitter-typeahead{ /*검색 창 부모 (검색 창 크기 조절은 여기서)   */
+    width: 60%; /*.mainsch width에 영향줌 */
+}
+.mainsch{ /*검색 창 자식  */ 
+border-style: none;
+    border-radius: 80px;
+    width: 100%;
+    line-height: 50px;
+    padding-left: 40px;
+    padding-right: 17px;
+        box-shadow: 0 0 0 3px #000 inset;
+}
+
+.icon {/* 검색창 안의 돋보기 모양   */
+    position: absolute;
+    margin-left: 730px;
+    margin-top: 11px;
+    z-index: 1;
+}    
+
+.btn1{ /* 돋보기 배경  */
+	background: url(../images/돋보기.png) no-repeat;
+	border: 0;
+}
+
+
+
+.contain_box{
+text-align: left !important;
+
+}
+
+.maintrip{
+  float: left;
+
+} 
+ 
+ 
+.carousel-inner img {
+	width: 100%;
+	height: 100%;
+	margin-bottom: 10px;
+}
+
+.carousel slide {
+	width: 800px;
+	height: 700px;
+}
+
+.carousel-inner span {
+	width: 22%;
+	height: 300px;
+	display: inline-block;
+}
+
+h4, h5{
+	font-weight: bold;
+}
+
+#mycarousel2{
+	margin-bottom: 100px;
+}
+
+#l1 {
+    float: left;
+    display: inline-block;
+    width: 25%;
+    margin-top: 50px;
+}
+
+#l2 {
+    float: left;
+    display: inline-block;
+    width: 25%;
+    margin-top: 50px;
+
+}
+
+#l3 {
+	float: left;
+	display: inline-block;
+	width: 25%;
+	margin-top: 160px;
+}
+
+.f4{
+    padding-top: 15px;
+}
+
+.carousel-inner {
+	float: right;
+	display: inline-block;
+	margin: 0 auto;
+	margin-bottom: 10px;
+	width: 75%;
+}
+
+.carousel-inner span {
+	width: 100%;
+	padding: 10px;
+}
+
+.carousel-indicators{
+margin: 0 auto;
+    bottom: 80px;
+    position: revert;
+    display: block;
+}
+
+
+
+#plz{
+	display: block;
+	flex: justify-content;
+	margin-bottom: 10px;
+}
+#plzbottom{
+	border-bottom : none;
+
+}
+
+
+
+
+#wrap {
+    margin-bottom: 100px !important;
+}
+
+.container mt-3{
+
+max-width: 1200px;
+}
+
+*, ::after, ::before {
+    box-sizing: content-box;
+}
+
+
+.img1{
+
+}
+.plz{
+display: inline-block;
+    width: 100%;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #666;
+    padding-bottom: 40px;
+}
+
+.download-and-desc[data-v-69e193ba] {
+    position: relative;
+    display: -webkit-box;
+    display: flex;
+    width: 100%;
+    height: 400px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-size: cover;
+    background-image: url(../images/appbackground.jpg);
+    border: 1px solid #e0e0e0;
+}
+
+.download[data-v-69e193ba] {
+    position: absolute;
+    left: 72px;
+    top: 79px;
+    width: 237px;
+    height: 321px;
+    background-size: cover;
+    background-image: url(https://res.klook.com/image/upload/v1641546505/r2nxymvueejluvw7ywjl.png);
+}
+.download-app_bottom[data-v-69e193ba] {
+    width: 100%;
+    position: absolute;
+    bottom: 26px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.download-app_ios[data-v-69e193ba], .download-app_ios[data-v-69e193ba]:lang(zh-Hans-CN) {
+    background-image: url(https://cdn.klook.com/s/dist_web/platform/dist_web/img/desktop-common-f7b2a3.png);
+    width: 92px;
+}
+
+.download-app_ios[data-v-69e193ba] {
+    background-position: -894px -207px;
+    height: 28px;
+}
+
+.download-app_android[data-v-69e193ba], .download-app_android[data-v-69e193ba]:lang(zh-Hans-CN) {
+    background-image: url(https://cdn.klook.com/s/dist_web/platform/dist_web/img/desktop-common-f7b2a3.png);
+    width: 92px;
+    height: 28px;
+}
+.download-app_android[data-v-69e193ba] {
+    background-position: -894px -123px;
+}
+
+.download-desc[data-v-69e193ba] {
+    position: absolute;
+    width: 330px;
+    top: 135px;
+    left: 340px;
+}
+
+#cumapp{
+    background-image: url(../images/cumapp.png);
+    position: absolute;
+    width: 40px;
+    z-index: 1;
+    height: 40px;
+    background-size: 100% 100%;
+    margin: 197px 170px;
+    border-radius: 14px;
+}
+
+
+
+</style>
+  
+ 
+<script>  
+ $(document).ready(function(){
+	
+	    var citys = [];
+		$.ajax({
+	    	url:'<%=request.getContextPath()%>/SearchSido.do' ,
+	    	type:'post',
+	    	success: function(res){
+	    	 	
+	    	$.each(res, function(i,v){	
+	    		 citys.push(''+v.sido+" "+v.gugun+'');
+	    	  })
+
+	    	  
+	    	  citys = new Bloodhound({
+	    	        datumTokenizer: Bloodhound.tokenizers.whitespace,
+	    	        queryTokenizer: Bloodhound.tokenizers.whitespace,
+	    	        local: citys 
+	    	       
+	    	    });
+	    	
+	    	  $('.typeahead').typeahead(null, {
+	    	         name: 'countries',
+	    	         limit: 100,    // 입력하면 아래에 나오는 예시 갯수 
+	    	         minLength: 1, // 검색창의 자동완성 기능 글자 나오는 설정 (숫자가 올라갈수록 숫자만큼 글자를 입력해야 미리보기가 나옴)
+	    	         source: citys
+	    	         
+	    	     });
+	    	  
+	    	
+	    	  	    	   
+	    	},
+	    	error: function(xhr){
+	    		alert('상태 :'+ xhr.status)
+	    	},
+	    	dataType:'json'
+	    		
+	    })
+	  
+		
+	   
+	    
+	   $('#submit').on('click',function(){
+		   
+		  addr =  $('#search').val();
+		  location.href= '<%=request.getContextPath()%>/view/jsp/submain.jsp?addr='+addr+'';
+		  
+     
+   })
+   
+   
+   
+   
+   $.ajax({
+			url : '/cumtrip/MainRandomTourList.do',
+			type : 'get',
+			
+			success : function(res) {
+				console.log(res)
+				$.each(res, function(i, v) {
+					if (i < 3) {
+						str = '<div class="index_from0">';
+						str += '<span>';
+						str += '<a href="detailpage.jsp?midno='+v.mid_no+'"><img src="/cumtrip/MainTourList.do?filename=' + v.photo_path + '" alt="' + v.photo_path + '" class="img1"; ></a>';
+						str += '<div class="f4_box1"><h5 class="f4">' + v.mid_name + '</h5>';
+						str += '<b>' + v.main_cate + '</b></span></div></div>';
+						$('#t1').append(str);
+					} else if (i < 6) {
+						str = '<div class="index_from0">';
+						str += '<span>';
+						str += '<a href="detailpage.jsp?midno='+v.mid_no+'"><img src="/cumtrip/MainTourList.do?filename=' + v.photo_path + '" alt="' + v.photo_path + '" class="img1";></a>';
+						str += '<div class="f4_box1"><h5 class="f4">' + v.mid_name + '</h5>';
+						str += '<b>' + v.main_cate + '</b></span></div></div>';
+						$('#t2').append(str);
+
+					} else if (i < 9) {
+						str = '<div class="index_from0">';
+						str += '<span>';
+						str += '<a href="detailpage.jsp?midno='+v.mid_no+'"><img src="/cumtrip/MainTourList.do?filename=' + v.photo_path + '" alt="' + v.photo_path + '" class="img1";></a>';
+						str += '<div class="f4_box1"><h5 class="f4">' + v.mid_name + '</h5>';
+						str += '<b>' + v.main_cate + '</b></span></div></div>';
+						$('#t3').append(str);
+					} 
+				})
+			},
+			error : function(xhr) {
+				alert("상태 : " + xhr.status);
+			},
+			dataType : 'json'
+		})
+		
+ 		// 관광지 10-18
+		$.ajax({
+			url : '/cumtrip/MainRecTourList.do',
+			type : 'get',
+			
+			success : function(res) {
+				$.each(res, function(i, v) {
+
+					if (i < 3) {
+						str = '<div class="index_from0">';
+						str += '<span>';
+						str += '<a href="detailpage.jsp?midno='+v.mid_no+'"><img src="/cumtrip/MainTourList.do?filename=' + v.photo_path + '" alt="' + v.photo_path + '" class="img1";></a>';
+						str += '<div class="f4_box1"><h5 class="f4">' + v.mid_name + '</h5>';
+						str += '<b>' + v.main_cate + '</b></span></div></div>';
+						$('#s1').append(str);
+					} else if (i < 6) {
+						str = '<div class="index_from0">';
+						str += '<span>';
+						str += '<a href="detailpage.jsp?midno='+v.mid_no+'"><img src="/cumtrip/MainTourList.do?filename=' + v.photo_path + '" alt="' + v.photo_path + '" class="img1"; ></a>';
+						str += '<div class="f4_box1"><h5 class="f4">' + v.mid_name + '</h5>';
+						str += '<b>' + v.main_cate + '</b></span></div></div>';
+						$('#s2').append(str);
+
+					} else if (i < 9) {
+						str = '<div class="index_from0">';
+						str += '<span>';
+						str += '<a href="detailpage.jsp?midno='+v.mid_no+'"><img src="/cumtrip/MainTourList.do?filename=' + v.photo_path + '" alt="' + v.photo_path + '" class="img1";></a>';
+						str += '<div class="f4_box1"><h5 class="f4">' + v.mid_name + '</h5>';
+						str += '<b>' + v.main_cate + '</b></span></div></div>';
+						$('#s3').append(str);
+					} 
+				})
+			},
+			error : function(xhr) {
+				alert("상태 : " + xhr.status);
+			},
+			dataType : 'json'
+		})
+		<% 
+		
+	    //JSP문서에서 세션은 'session'이라는 이름으로 이미 생성되어 있다.
+		MemberVO loginMemVo = (MemberVO)session.getAttribute("loginMember");		    
+  	    if(loginMemVo != null ){
+	 %>
+		// 관광지 19-27
+		$.ajax({
+			url : '/cumtrip/MainAttrTourlist.do',
+			type : 'get',
+			
+			success : function(res) {
+	
+				$.each(res, function(i, v) {
+					
+						if (i < 3) {
+							str = '<div class="index_from0">';
+							str += '<span>';
+							str += '<a href="detailpage.jsp?midno='+v.mid_no+'"><img src="/cumtrip/MainTourList.do?filename=' + v.photo_path + '" alt="' + v.photo_path + '" class="img1";></a>';
+							str += '<div class="f4_box1"><h5 class="f4">' + v.mid_name + '</h5>';
+							str += '<b>' + v.main_cate + '</b></span></div></div>';
+							$('#f1').append(str);
+						} else if (i < 6) {
+							str = '<div class="index_from0">';
+							str += '<span>';
+							str += '<a href="detailpage.jsp?midno='+v.mid_no+'"><img src="/cumtrip/MainTourList.do?filename=' + v.photo_path + '" alt="' + v.photo_path + '" class="img1";></a>';
+							str += '<div class="f4_box1"><h5 class="f4">' + v.mid_name + '</h5>';
+							str += '<b>' + v.main_cate + '</b></span></div></div>';
+							$('#f2').append(str);
+
+						} else if (i < 9) {
+							str = '<div class="index_from0">';
+							str += '<span>';
+							str += '<a href="detailpage.jsp?midno='+v.mid_no+'"><img src="/cumtrip/MainTourList.do?filename=' + v.photo_path + '" alt="' + v.photo_path + '" class="img1";></a>';
+							str += '<div class="f4_box1"><h5 class="f4">' + v.mid_name + '</h5>';
+							str += '<b>' + v.main_cate + '</b></span></div></div>';
+							$('#f3').append(str);
+						} 	
+				
+					
+				})
+			},
+			error : function(xhr) {
+				alert("상태 : " + xhr.status);
+			},
+			dataType : 'json'
+		})
+		
+			
+
+	 $.ajax({
+			
+		 	url: '/cumtrip/MainMattraction.do',
+		 	type:'get',
+		 	success: function(res){
+		 		if(res == null){
+				 $("#attraction").modal('show');
+		 		}else{
+		 			str = '<div id="l3">';
+					str +='<span class="att">';
+					str +=		'<div class="in">';
+					str +=			'<ul class="carousel-indicators">';
+					str +=				'<li class="item31 active"></li>';
+					str +=				'<li class="item32"></li>';
+					str +=				'<li class="item33"></li>';
+					str +=			'</ul>';
+					str +=		'</div>';
+					str +=		'<h4 class="f1">맞춤 추천</h4>';
+					str +=	'</span>';
+					str += '</div>';
+					
+					$('.plz').eq(2).append(str);
+		 			
+		 		}
+		 	},
+		 	
+		 	dataType : 'json'
+	 })
+	 
+	 $('#check').on('click',function(){
+		$('#attrsubmit').submit();
+    
+     	})
+     	
+    	<%}%>
+     	
+     	     	
+     		 	
+     	
+     	
+     	
+     	
+     			/* $("#attraction").modal('show')
+	
+		 		$('#check').on('click',function(){
+				   $("input[type=checkbox]:checked").each(function(){
+						var value = $(this).val();
+						console.log(value);
+					})
+			
+					$(this).parents('.modal').modal('hide');
+			}) 	 */
+   
+
+		
+		
+});  
+</script> 
+  
+<!-- 로딩 -->
+<link rel="stylesheet" href="<%= request.getContextPath() %>/view/css/fakeLoader.css">
+<script src="<%= request.getContextPath() %>/view/js/fakeLoader.js"></script>
+</head>
+<body>
+<header id="header_main"><!-- 상단 헤더 불러오기 --></header>
+
+	
+	<contain>
+		
+	<article>
+	   <div class="box" style="display:table; width: 100%;">
+	    <div class="backgroundimg">
+	     <form style="width: 1200px;margin: auto;">
+	      <span class="icon">
+	      <button type="button" id="submit" class="btn1"><img  src="../images/돋보기.png" style="width: 23px;
+   		   height: 23px;">
+	      </button>
+	      </span>
+		  <input type="text"  id="search" name="search" autocomplete="off" spellcheck="false"  class="mainsch typeahead tt-query" 
+		  placeholder="어디로 가시나요?"> 	
+	     </form>
+		</div>
+	   </div>
+	  </article>
+		
+		 <section>
+			<article>
+				<ol class="contain_box" >
+					<div class="container mt-3">
+					
+
+						<div id="myCarousel" class="carousel slide">
+							<!-- The slideshow -->
+							<div class="plz">
+								<div id="l1" class="f1">
+									<span class="att">
+										<div class="in">
+										<ul class="carousel-indicators">
+											<li class="item1 active"></li>
+											<li class="item2"></li>
+											<li class="item3"></li>
+										</ul>
+										</div>
+										<h4 class="f1">추천 여행지</h4>
+									</span>
+								</div>
+
+								<div class="carousel-inner" data-interval="false">
+									<div class="carousel-item active" id="t1"></div>
+									<div class="carousel-item" id="t2"></div>
+									<div class="carousel-item" id="t3"></div>
+									<br><br>
+
+									<!-- Indicators 몇 개의 슬라이드가 있고 현재 어느 슬라이드인지 알려주는 부분 -->
+	<!-- 								<div class="in">
+										<ul class="carousel-indicators">
+											<li class="item1 active"></li>
+											<li class="item2"></li>
+											<li class="item3"></li>
+										</ul>
+									</div> -->
+								</div>
+								<!-- carousel-inner 끝 -->
+							</div>
+							<!-- plz 끝 -->
+						</div>
+						<!-- myCarousel 끝 -->
+
+<!-- 
+						Left and right controls 이전, 다음 버튼
+						<a class="carousel-control-prev" href="#myCarousel"> 
+							<span class="carousel-control-prev-icon"></span>
+						</a> 
+						<a class="carousel-control-next" href="#myCarousel"> 
+							<span class="carousel-control-next-icon"></span>
+						</a>
+						 -->
+						
+						<!-- 관광지 끝 -->
+
+						
+						<div id="myCarousel2" class="carousel slide">
+							<!-- The slideshow -->
+							<div class="plz">
+								<div id="l2">
+									<span class="att">
+										<div class="in">
+											<ul class="carousel-indicators">
+												<li class="item21 active"></li>
+												<li class="item22"></li>
+												<li class="item23"></li>
+											</ul>
+										</div>
+										<h4 class="f1">인기순</h4>
+									</span>
+								</div>
+
+								<div class="carousel-inner" data-interval="false">
+									<div class="carousel-item active" id="s1"></div>
+									<div class="carousel-item" id="s2"></div>
+									<div class="carousel-item" id="s3"></div>
+									<br><br>
+
+									<!-- Indicators 몇 개의 슬라이드가 있고 현재 어느 슬라이드인지 알려주는 부분 -->
+<!-- 									<div class="in">
+										<ul class="carousel-indicators">
+											<li class="item21 active"></li>
+											<li class="item22"></li>
+											<li class="item23"></li>
+										</ul>
+									</div> -->
+								</div>
+								<!-- carousel-inner 끝-->
+							</div>
+							<!-- plz 끝-->
+						</div>
+						<!-- myCarousel2 끝 -->
+<!-- 
+						Left and right controls 이전, 다음 버튼
+						<a class="carousel-control-prev" href="#myCarousel"> 
+							<span class="carousel-control-prev-icon"></span>
+						</a> 
+						<a class="carousel-control-next" href="#myCarousel"> 
+							<span class="carousel-control-next-icon"></span>
+						</a>
+						 -->
+						
+						<!-- 숙소 끝 -->
+						
+						<% 
+		
+	    				//JSP문서에서 세션은 'session'이라는 이름으로 이미 생성되어 있다.
+						 loginMemVo = (MemberVO)session.getAttribute("loginMember");		    
+  	   					 if(loginMemVo != null ){
+  	   						 
+	 					%>
+						<div id="myCarousel3" class="carousel slide">
+							<!-- The slideshow -->
+							<div class="plz" id="plzbottom">
+						
+
+								<div class="carousel-inner" data-interval="false">
+									<div class="carousel-item active" id="f1" ></div>
+									<div class="carousel-item" id="f2"></div>
+									<div class="carousel-item" id="f3"></div>
+									<br><br>
+
+									<!-- Indicators 몇 개의 슬라이드가 있고 현재 어느 슬라이드인지 알려주는 부분 -->
+<!-- 									<div class="in">
+										<ul class="carousel-indicators">
+											<li class="item31 active"></li>
+											<li class="item32"></li>
+											<li class="item33"></li>
+										</ul>
+									</div> -->
+								</div>
+								<!-- carousel-inner 끝 -->
+							</div>
+							<!-- plz 끝 -->
+						</div>
+						<%} %>
+						
+						<!-- myCarousel3 끝 -->
+
+<!-- 
+						Left and right controls 이전, 다음 버튼
+						<a class="carousel-control-prev" href="#myCarousel"> 
+							<span class="carousel-control-prev-icon"></span>
+						</a> 
+						<a class="carousel-control-next" href="#myCarousel"> 
+						<span class="carousel-control-next-icon"></span>
+						</a>
+						 -->
+						<!-- 음식점 끝 -->
+					</div>
+					<!-- container mt-3 끝 -->
+
+
+				</ol>
+			</article>
+
+		</section>
+		
+		
+		<div class="download-and-desc" data-v-9aea70ea data-v-69e193ba style="margin: auto;
+    width: 1200px;margin-bottom: 20px;">
+      		 <div id="cumapp"></div>
+			<div class="download" data-v-9aea70ea data-v-69e193ba>
+				<div class="download-app_bottom" data-v-9aea70ea data-v-69e193ba>
+					<a href="https://www.apple.com/kr/" class="download-app_ios" data-v-9aea70ea data-v-69e193ba style="margin-left: 20px;"></a> 
+					<a href="https://play.google.com/store/games?hl=ko"  class="download-app_android" data-v-9aea70ea data-v-69e193ba style="margin-right: 20px;"></a>
+				</div>
+			</div> 
+		  <div class="download-desc" data-v-9aea70ea data-v-69e193ba>
+		       <div class="title" data-v-9aea70ea data-v-69e193ba style="color: #fff;font-weight: bold;font-size: 2.0em;text-align: left;margin-left: 20px;">앱에서 첫 구매시 최대 1만원, 5% 할인!</div> 
+		       <div class="desc" style="color: #fff;font-size: 14.5px;margin: 20px;text-align: left;">예약시 쿠폰 코드 'BetterOnApp'을 입력하고, 신나는 액티비티를 할인된 가격에 즐겨보세요.</div>
+		 </div>
+	 </div>
+		
+	
+		
+		
+	
+	</contain>
+		<div class="modal fade" id="attraction">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">취향을 선택해 주세요.</h4>
+           <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <form action = "<%=request.getContextPath()%>/MainMattractionInsert.do" id="attrsubmit">
+        <div class="modal-body">
+			<ul style="list-style: none;">
+				<li><input type="checkbox" name="attr" id="a2" value="1" /> <label
+				for="a2"><span>힐링</span></label></li>
+
+				<li><input type="checkbox" name="attr" id="a3" value="2" /> <label
+				for="a3"><span>연인</span></label></li>
+
+				<li><input type="checkbox" name="attr" id="a4" value="3"/> <label
+				for="a4"><span>개인</span></label></li>
+				
+				<li><input type="checkbox"  name="attr"id="a5" value="4"/> <label
+				for="a5"><span>관광</span></label></li>
+				
+				<li><input type="checkbox" name="attr" id="a6" value="5" /> <label
+				for="a6"><span>공원</span></label></li>
+				
+				<li><input type="checkbox"  name="attr" id="a7" value="6"/> <label
+				for="a7"><span>플렉스</span></label></li>
+				
+				<li><input type="checkbox" name="attr" id="a8" value="7" /> <label
+				for="a8"><span>레저</span></label></li>
+			</ul>
+		</div>
+        </form>
+        <!-- Modal footer -->
+        <div class="modal-footer" style="place-content: center;">
+          <button type="button" class="btn btn-primary" id="check">확인</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+        </div>
+        
+        </div>
+      </div>
+    </div>
+    
+
+<footer id="footer_main"><!-- 하단불러오기 --></footer>
+
+
+<!-- 로딩 -->
+ <div class="fakeLoader"></div>
+ <script src="<%= request.getContextPath() %>/view/js/fakeLoader_speed.js"></script>
+
+</body>
+</html>
