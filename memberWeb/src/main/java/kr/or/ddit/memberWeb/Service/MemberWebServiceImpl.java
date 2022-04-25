@@ -10,9 +10,10 @@ import kr.or.ddit.memberWeb.VO.MemberWebVO;
 import kr.or.ddit.util.DBUtil3;
 
 public class MemberWebServiceImpl implements MemberWebService{
-	
-	private static MemberWebService service;
+
 	private MemberWebDao dao;
+	private static MemberWebService service;
+
 	
 
 	private MemberWebServiceImpl() {

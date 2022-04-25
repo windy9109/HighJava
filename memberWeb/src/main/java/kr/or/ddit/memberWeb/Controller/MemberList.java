@@ -32,11 +32,11 @@ public class MemberList extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		
-		request.setCharacterEncoding("utf-8");
+//		request.setCharacterEncoding("utf-8");
 //		
-		response.setCharacterEncoding("utf-8");
-		response.setContentType("application/json; charset=UTF-8");
-		PrintWriter out = response.getWriter();
+//		response.setCharacterEncoding("utf-8");
+//		response.setContentType("application/json; charset=UTF-8");
+//		PrintWriter out = response.getWriter();
 //		
 //		 out.println("<h2>계산 결과</h2>");
 //		 
@@ -72,14 +72,35 @@ public class MemberList extends HttpServlet {
 		//5. jsp로 위임(forward)하여 응답데이터 생성하기(출력또는 json 데이터)
 		//request.getRequestDispatcher("0401/sido.jsp").forward(request, response);
 		
+<<<<<<< HEAD
+		
+
+		
+		request.setAttribute("listvalue", list);
+		
+		//view페이지로 forward
+		request.getRequestDispatcher("main.jsp").forward(request, response);
+		
+//		Gson gon = new Gson();
+//		String result = gon.toJson(list);
+//		
+//		response.setContentType("application/json;charset=utf-8");
+//		PrintWriter out = response.getWriter();
+//		
+//		out.print(result);
+//		out.flush();
+		
+		
+		
+		
+=======
 		Gson gon = new Gson();
 		String result = gon.toJson(list2);
 		
 //		response.setContentType("application/json;charset=utf-8");
 //		PrintWriter out = response.getWriter();
+>>>>>>> b6fb12d0ba8a08c25c2ac2a52bb9028295f86f79
 		
-		out.print(result);
-		out.flush();
 		
 		
 		
