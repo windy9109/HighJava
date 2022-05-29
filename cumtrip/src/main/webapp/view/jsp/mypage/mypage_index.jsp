@@ -82,8 +82,13 @@ $(function(){
 		 		     </form>   
 		    </div>                                                                          
 		     <div class="modal-footer">
+<<<<<<< HEAD
 		    <input type="button" value="입력" id="inputsubmit" class="btn btn-success" style="width: 50px; line-height: 30px; float: right"></div>';> 
 		    <button type="button" class="btn btn-danger" data-dismiss="modal" style="width: 50px; line-height: 30px; float: right"></div>';>Close</button>  
+=======
+		    <input type="button" value="입력" id="inputsubmit" class="btn btn-success" style=" line-height: 30px; float: right">
+		    <button type="button" class="btn btn-danger" data-dismiss="modal" style=" line-height: 30px; float: right">Close</button>
+>>>>>>> c2f2a6fbe0cc12547d7201f74cd377ea94314f8e
 		     
 		   </div></div></div></div> 
 		

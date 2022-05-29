@@ -3,8 +3,12 @@
 .carousel-inner img {
 	width: 100%;
 	height: 100%;
+<<<<<<< HEAD
 	margin-top: 50px;
 	margin-bottom: 10px;
+=======
+	margin-bottom: 15px;
+>>>>>>> c2f2a6fbe0cc12547d7201f74cd377ea94314f8e
 }
 
 .carousel slide {
@@ -16,6 +20,7 @@
 	width: 22%;
 	height: 300px;
 	display: inline-block;
+	
 }
 
 /* 	
@@ -82,6 +87,10 @@ h4, h5{
 .carousel-inner span {
 	width: 30%;
 	padding: 10px;
+<<<<<<< HEAD
+=======
+	padding-bottom: 80px !important;
+>>>>>>> c2f2a6fbe0cc12547d7201f74cd377ea94314f8e
 }
 
 .carousel-indicators{

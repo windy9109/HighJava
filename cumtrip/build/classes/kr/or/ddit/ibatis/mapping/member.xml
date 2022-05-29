@@ -131,7 +131,11 @@
 
 	<select id="payMypage01" resultClass="membervo" parameterClass="string">
 select *
+<<<<<<< HEAD
  from (   select f.cart_no, f.CART_CHECK, f.stay_name, to_char(f.cart_in, 'yyyy-mm-dd') as cart_in, to_char(f.cart_out, 'yyyy-mm-dd') as cart_out, f.room_grade, f.mem_email, f.pay_no, to_char(f.pay_date, 'yyyy-mm-dd') as pay_date, f.pay_price, f.pway_code, f.pay_status,  ROUND(f.cart_out-sysdate) as 
+=======
+ from (   select f.cart_no, f.CART_CHECK, f.stay_name, to_char(f.cart_in, 'yyyy-mm-dd') as cart_in, to_char(f.cart_out, 'yyyy-mm-dd') as cart_out, f.room_grade, f.mem_email, f.pay_no, to_char(f.pay_date, 'yyyy-mm-dd') as pay_date, f.pay_price, f.pway_code, f.pay_status,  TRUNC(f.cart_out-sysdate) as 
+>>>>>>> c2f2a6fbe0cc12547d7201f74cd377ea94314f8e
 term, g.REFUND_NO, to_char(g.REFUND_DATE, 'yyyy-mm-dd') as REFUND_DATE
      from (select d.cart_no, d.CART_CHECK, d.stay_name, d.cart_in, d.cart_out, d.room_grade, d.mem_email, e.pay_no, e.pay_date, e.pay_price, e.pway_code, e.pay_status,  ROUND(d.cart_out-sysdate) as 
 term

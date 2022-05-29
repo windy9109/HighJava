@@ -139,8 +139,14 @@ width: 10px;
     margin: 0 5px;
     padding: 10px;
     border: 1px solid #666;
+<<<<<<< HEAD
     padding-bottom: 25px;
     border-top: 2px solid #000;
+=======
+    padding-bottom: 85px;
+    border-top: 2px solid #000;
+    display: inline-block;
+>>>>>>> c2f2a6fbe0cc12547d7201f74cd377ea94314f8e
 }
 
 .bs-example {
@@ -222,9 +228,15 @@ text-align: left !important;
  
  
 .carousel-inner img {
+<<<<<<< HEAD
 	width: 100%;
 	height: 100%;
 	margin-bottom: 10px;
+=======
+width: 100%;
+    height: 100%;
+    margin-bottom: 10px;
+>>>>>>> c2f2a6fbe0cc12547d7201f74cd377ea94314f8e
 }
 
 .carousel slide {
@@ -250,7 +262,11 @@ h4, h5{
     float: left;
     display: inline-block;
     width: 21%;
+<<<<<<< HEAD
     height: 419px;
+=======
+    height: 400px;
+>>>>>>> c2f2a6fbe0cc12547d7201f74cd377ea94314f8e
 }
 
 .container{
@@ -261,14 +277,22 @@ max-width: 1200px;
     float: left;
     display: inline-block;
     width: 21%;
+<<<<<<< HEAD
     height: 419px;
+=======
+    height: 400px;
+>>>>>>> c2f2a6fbe0cc12547d7201f74cd377ea94314f8e
 }
 
 #l3 {
 	float: left;
 	display: inline-block;
 	width: 21%;
+<<<<<<< HEAD
 	    height: 419px;
+=======
+	    height: 400px;
+>>>>>>> c2f2a6fbe0cc12547d7201f74cd377ea94314f8e
 }
 
 .f4{
@@ -284,7 +308,12 @@ max-width: 1200px;
 }
 
 .carousel-inner span {
+<<<<<<< HEAD
 	width: 100% !important;
+=======
+	    width: 100% !important;
+    padding: 0 !important;
+>>>>>>> c2f2a6fbe0cc12547d7201f74cd377ea94314f8e
 }
 
 .carousel-indicators{

@@ -83,7 +83,7 @@
 		     str+= 	'</tr>'                                                                                     ;
 		     str+= 	'<tr>'                                                                                       ;
 		     str+= 		'<td>주소</td>'                                                                          ;
-		     str+= 		'<td><input type="text" name ="add" value= "'+res.mem_add+'"></td>'  		                                   ;
+		     str+= 		'<td><input type="text" name ="add" value= "'+res.mem_addr+'"></td>'  		                                   ;
 		     str+= 	'</tr>'                                                                                      ;
 		     str+= 	'<tr>'                                                                                       ;
 		     str+= 		'<td>전화번호</td>'                                                                      ;

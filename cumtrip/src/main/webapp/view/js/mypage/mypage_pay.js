@@ -28,12 +28,20 @@ $(function(){
 
 						if(v.pay_date != "null"){ pay_date = v.pay_date }else{ pay_date = "-" }
 						if(v.pway_name != "null"){ pway_name = v.pway_name }else{ pway_name = "-" }
+<<<<<<< HEAD
 						if(v.pay_status == "null"){ pay_status = '결제전<br><a href="#" class="mypage_PayBottom" sytle="color:white !important;">결제하기</a>' }
 						else if(v.pay_status == "y" || v.pay_status == "Y"){ pay_status = "결제완료" }
 						if(v.cart_check == "n" || v.cart_check == "N"){ cart_check = '-' }
 						else if(v.cart_check == "f" || v.cart_check == "F"){ cart_check = '취소완료' }
 						else if(v.cart_check == "y" || v.cart_check == "Y" && v.term > 7){ cart_check = '<a href="#" class="mypage_PayBottom mypage_PayBottom_cancel" sytle="color:white !important;">결제취소</a>'} 
 						else if( v.cart_check == "y" || v.cart_check == "Y" && v.term < 7){ cart_check = '결제취소불가' }
+=======
+						if(v.pay_status == "y" || v.pay_status == "Y"){ pay_status = "결제완료" }else{ pay_status = '결제전<br><a href="#" class="mypage_PayBottom" sytle="color:white !important;">결제하기</a>' }
+						if(v.cart_check == "n" || v.cart_check == "N"){ cart_check = '-' }
+						else if(v.cart_check == "f" || v.cart_check == "F"){ cart_check = '취소완료' }
+						else if(v.cart_check == "y" || v.cart_check == "Y" && v.term >= 1){ cart_check = '<a href="#" class="mypage_PayBottom mypage_PayBottom_cancel" sytle="color:white !important;">결제취소</a>'} 
+						else if( v.cart_check == "y" || v.cart_check == "Y" && v.term < 1){ cart_check = '결제취소불가' }
+>>>>>>> c2f2a6fbe0cc12547d7201f74cd377ea94314f8e
 						if(v.refund_date == "null"){ refund = "-" }else{ refund = "환불예정일: "+v.refund_date }
 						
 						str += '<li class="mypage_boxPay_li">';
