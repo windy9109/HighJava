@@ -72,7 +72,6 @@ public class MemberList extends HttpServlet {
 		//5. jsp로 위임(forward)하여 응답데이터 생성하기(출력또는 json 데이터)
 		//request.getRequestDispatcher("0401/sido.jsp").forward(request, response);
 		
-<<<<<<< HEAD
 		
 
 		
@@ -93,13 +92,13 @@ public class MemberList extends HttpServlet {
 		
 		
 		
-=======
+
 		Gson gon = new Gson();
 		String result = gon.toJson(list2);
 		
 //		response.setContentType("application/json;charset=utf-8");
 //		PrintWriter out = response.getWriter();
->>>>>>> b6fb12d0ba8a08c25c2ac2a52bb9028295f86f79
+
 		
 		
 		

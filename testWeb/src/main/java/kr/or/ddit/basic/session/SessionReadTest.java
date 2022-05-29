@@ -72,7 +72,7 @@ public class SessionReadTest extends HttpServlet {
 			String sessionKey = sessionNames.nextElement();
 			
 			Object value = session.getAttribute(sessionKey);
-			out.println("<li>"+sessionKey+" : "+value+"</li>");
+			out.println("각각 세션의 key값을 구하기<li>"+sessionKey+" : "+value+"</li>");
 			
 		}
 		

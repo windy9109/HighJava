@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap 
+	PUBLIC "//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+ <sqlMap namespace="member">
+ 	
+	<select id="selectMember" resultClass="membervo">
+		select* from member order by mem_since desc
+	</select>
+	<select id="selectMemberone" resultClass="membervo" parameterClass="string">
+		select* from member where mem_email = #email#
+	</select>
+	<update id="updatemember" parameterClass="membervo">
+		update member set mem_name = #mem_name#, mem_addr = #mem_addr#, mem_tel = #mem_tel# where mem_email = #mem_email#
+	</update>
+	
+	<update id="updatemember2" parameterClass="string">
+		update member set mem_status = 'N' where mem_email = #mem_email#
+	</update>
+	
+
+
+	
+<!-- 회원가입 시작 -->
+   	
+   	<!-- 중복검사 -->
+   	<select id="memberCount" resultClass="membervo" parameterClass="string">
+   		select * from member where mem_email =#data#
+   	</select>
+   	
+   	<!-- 저장하기 -->
+   	<insert id="memberInsert" parameterClass="membervo">
+   		insert into member (mem_email, mem_pass, mem_name, mem_addr, mem_tel, mem_since, mem_status, mem_photo)
+		values(#mem_email#, #mem_pass#, #mem_name#, #mem_addr#, #mem_tel#, sysdate, 'y', 'nonprofile.png')
+	</insert>
+  
+
+   
+
+
+<!-- 회원가입 마침 -->
+
+
+
+<!-- 로그인 시작 -->
+
+	<select id="memberLogin" resultClass="membervo" parameterClass="membervo">
+		select * from member where mem_email=#mem_email# and mem_pass=#mem_pass# and mem_status='y'
+	</select>
+
+<!-- 로그인 마침 -->
+
+
+<!-- 아이디찾기 -->
+	<select id="memberidFind" resultClass="membervo" parameterClass="membervo">
+   		select * from member where mem_name=#mem_name# and mem_tel=#mem_tel#
+   	</select>
+<!-- 아이디 찾기 마침 -->
+
+
+<!-- 비밀번호찾기 -->
+	<select id="memberPassFind" resultClass="membervo" parameterClass="membervo">
+   		select * from member where mem_name=#mem_name# and mem_email=#mem_email#
+   	</select>
+   	
+<!-- 비밀번호 찾기 마침 -->
+<!-- 비밀번호 변경 -->
+	
+	<update id="memberPassSetFind" parameterClass="membervo">
+
+		update member set mem_pass=#mem_pass# where mem_email=#mem_email#
+	</update>
+<!-- 비밀번호 변경 마침 -->
+
+<!-- 회원정보수정 -->
+	<update id="updateMember_Mypage" parameterClass="membervo">
+		update member set mem_name = #mem_name#, mem_addr = #mem_addr#, mem_tel = #mem_tel#, mem_pass = #mem_pass# where mem_email = #mem_email#
+	</update>
+<!-- 회원정보수정 마침 -->
+
+<!-- 회원탈퇴 -->
+	<update id="deleteMember_Mypage" parameterClass="membervo">
+		update member set mem_status='t' where mem_email = #mem_email#
+	</update>
+<!-- 회원탈퇴 -->
+
+
+<!-- 마이페이지 리뷰 좋아요 -->
+	<select id="likeMypage01" resultClass="membervo" parameterClass="map">
+		select b.mre_no, c.mem_email, c.mre_title, to_char(c.mre_date, 'yyyy-mm-dd') as mre_date, c.mid_no, d.mid_name as mid_name
+		from member a, mr_likes b, m_review c, middle d
+		where a.mem_email = b.mem_email and b.mre_no = c.mre_no and c.mid_no = d.mid_no
+		and a.mem_email = #id1#
+		union
+		select d.STAY_NO as mre_no, c.mem_email as mem_email, c.sre_title as sre_title, to_char(c.sre_date, 'yyyy-mm-dd') as sre_date, c.stay_no as mid_no, d.stay_name as mid_name
+		from member a, sr_likes b, s_review c, stay d
+		where a.mem_email = b.mem_email and b.sre_no = c.sre_no and d.stay_no = c.stay_no
+		and a.mem_email = #id2#
+
+	</select>
+<!-- 마이페이지 리뷰 좋아요 마침 -->
+
+<!-- 찜풀기 -->
+	<delete id="likeMypageDelete01" parameterClass="membervo">
+		delete from mr_likes where mem_email=#mem_email# and mre_no=#mre_no#
+	</delete>
+	
+	<delete id="likeMypageDelete02" parameterClass="membervo">
+		delete from sr_likes where mem_email=#mem_email# and sre_no=#mre_no#
+	</delete>
+<!-- 찜풀기 마침 -->
+
+
+
+<!-- 작성리뷰조회 -->
+	<select id="reviweMypage01" resultClass="membervo" parameterClass="map">
+        select a.mre_no as sre_no, a.mre_title as sre_title, to_char(a.mre_date, 'yyyy-mm-dd') as sre_date, a.mre_point as sre_point, a.mid_no as mid_no, b.mid_name as stay_name
+		    from m_review a, middle b
+		  where a.mid_no=b.mid_no and mem_email=#id1#       
+		union
+		select c.sre_no as sre_no, c.sre_title as sre_title, to_char(c.sre_date, 'yyyy-mm-dd') as sre_date, c.sre_point as sre_point, c.stay_no as mid_no, d.stay_name
+		    from s_review c, stay d
+		  where c.stay_no = d.stay_no and mem_email=#id2#
+	</select>
+<!-- 작성리뷰조회 마침 -->
+
+
+<!-- 결제조회 -->
+
+	<select id="payMypage01" resultClass="membervo" parameterClass="string">
+select *
+ from (   select f.cart_no, f.CART_CHECK, f.stay_name, to_char(f.cart_in, 'yyyy-mm-dd') as cart_in, to_char(f.cart_out, 'yyyy-mm-dd') as cart_out, f.room_grade, f.mem_email, f.pay_no, to_char(f.pay_date, 'yyyy-mm-dd') as pay_date, f.pay_price, f.pway_code, f.pay_status,  ROUND(f.cart_out-sysdate) as 
+term, g.REFUND_NO, to_char(g.REFUND_DATE, 'yyyy-mm-dd') as REFUND_DATE
+     from (select d.cart_no, d.CART_CHECK, d.stay_name, d.cart_in, d.cart_out, d.room_grade, d.mem_email, e.pay_no, e.pay_date, e.pay_price, e.pway_code, e.pay_status,  ROUND(d.cart_out-sysdate) as 
+term
+             from (select c.cart_no, a.stay_name, b.room_grade, c.mem_email, c.cart_in, c.cart_out, c.CART_CHECK
+                from stay a, room b, cart c
+                where a.stay_no = b.stay_no and c.room_no = b.room_no and c.stay_no = b.stay_no
+                and c.mem_email =#data# ) d left outer join pay e on d.cart_no = e.cart_no )f 
+                left outer join refund g on f.cart_no = g.REFUND_NO   )h left outer join pay_way i on h.pway_code = i.pway_code
+	</select>
+	
+<!-- 결제조회 마침 -->
+
+
+ 
+ <!-- 여행지 좋아요 -->
+
+	<select id="likeMypage02" resultClass="membervo" parameterClass="map">
+        select *
+		from
+		(select mem_email, mid_name, mid_location, mid_no, photo_path, row_number() over( partition by mid_no order by photo_path ) as row_num
+		from  
+		(
+        select distinct a.mem_email, b.mid_name, b.mid_location, c.mid_no, c.photo_path
+		from mylist a, middle b, photo c
+		where a.mid_no = b.mid_no and b.mid_no = c.mid_no and a.mem_email = #id1#
+        union
+        select distinct a.mem_email, b.stay_name, b.stay_location, c.stay_no, c.spho_path
+		from staymylist a, stay b, s_photo c
+		where a.stay_no = b.stay_no and b.stay_no = c.stay_no and a.mem_email = #id2#))
+		where row_num = 1 order by mid_no
+	</select>
+	
+<!-- 여행지 좋아요 마침 -->
+
+
+ <!-- 여행지 찜풀기 -->
+
+	<delete id="likeMypageDelete03" parameterClass="membervo">
+		delete from mylist where mem_email=#mem_email# and mid_no=#mid_no#
+	</delete>
+	
+	<delete id="likeMypageDelete04" parameterClass="membervo">
+		delete from staymylist where mem_email=#mem_email# and stay_no=#mid_no#
+	</delete>
+	
+<!-- 여행지 찜풀기 마침 -->
+ 
+ 	<update id="updatemphoto" parameterClass="membervo">
+ 		update member set  mem_photo = #mem_photo# where mem_email = #mem_email#	
+ 	</update>
+ 	
+ 	
+	<select id="qselectall" parameterClass="string" resultClass="boardVo" >
+	select e.qa_title, to_char(e.qa_date,'yyyy-mm-dd' ) as qa_date,e.qa_no ,e.mem_email from q_admin e
+ 	where e.qa_no not in
+ 	(select b.qa_no as qa_no from q_admin a, a_admin b 
+ 	where a.qa_no = b.qa_no
+ 	and a.qa_no = b.qa_no
+ 
+ 	union all 
+ 
+ 	select null as qa_no
+ 	from dual
+ 	where not exists ( select d.qa_no as qa_no from q_admin c, a_admin d 
+ 	where c.qa_no = d.qa_no
+ 	and c.qa_no = d.qa_no))
+	order by qa_date desc
+	</select>
+	
+	<!-- 환불 -->
+	 <insert id="mypage_payUdate01" parameterClass="string">
+ 		insert into refund(refund_no, refund_date) values(#data#, sysdate+7)	
+ 	</insert>
+ 	<update id="mypage_payUdate02" parameterClass="string">
+ 		update cart set cart_check = 'f' where cart_no=#data#
+ 	</update>
+	<!-- 환불마침 -->
+	
+ </sqlMap>

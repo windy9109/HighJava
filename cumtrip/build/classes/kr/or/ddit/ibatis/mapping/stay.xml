@@ -1,39 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE sqlMap 
-	PUBLIC "//iBATIS.com//DTD SQL Map 2.0//EN"
-	 "http://www.ibatis.com/dtd/sql-map-2.dtd">
+	PUBLIC "//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
- <sqlMap  namespace="stay">
- 	<insert id="insertstay" parameterClass="stayvo">
- 		insert into stay (stay_no, stay_name,stay_location, stay_x,stay_y, stay_ex,
-	  stay_cate)
-	 values('S000'||stay_seq.nextval ,#stay_name#,#stay_location#,#stay_x#, #stay_y#
-	  ,#stay_ex#, #stay_cate#) 
- 	
- 	</insert>
-	<select id="selectstayno" parameterClass="map" resultClass="string">
-	select stay_no from stay where stay_location = #location# and stay_name= #name#
-	 </select>
+<sqlMap namespace="stay">
+	<insert id="insertstay" parameterClass="stayvo">
+		insert into stay (stay_no, stay_name,stay_location, stay_x,stay_y, stay_ex,
+		stay_cate)
+		values('S000'||stay_seq.nextval ,#stay_name#,#stay_location#,#stay_x#, #stay_y#
+		,#stay_ex#, #stay_cate#)
+
+	</insert>
+	<select id="selectstayno" parameterClass="map"
+		resultClass="string">
+		select stay_no from stay where stay_location = #location# and stay_name=
+		#name#
+	</select>
 	<insert id="insertroom" parameterClass="map">
-		insert into room (room_no, stay_no, room_grade, room_price)
-		values(#roomnum#,#stayno#, #grade#, #cost#)
-	</insert>	
+		insert into room
+		(room_no, stay_no, room_grade, room_price)
+		values(#roomnum#,#stayno#,
+		#grade#, #cost#)
+	</insert>
 	<select id="selectallstay" resultClass="stayvo">
 		select * from stay
 	</select>
-	<select id="selectonestay" resultClass="stayvo" parameterClass="string">
+	<select id="selectonestay" resultClass="stayvo"
+		parameterClass="string">
 		select * from stay where stay_no = #data#
-	</select>	
+	</select>
 	<update id="updatestay" parameterClass="stayvo">
-		update stay set stay_name =#stay_name#, stay_location =#stay_location#, stay_x = #stay_x#, stay_y = #stay_y#,
-		stay_cate = #stay_cate# , stay_ex = #stay_ex# where stay_no = #stay_no#
+		update stay set stay_name
+		=#stay_name#, stay_location =#stay_location#, stay_x = #stay_x#,
+		stay_y = #stay_y#,
+		stay_cate = #stay_cate# , stay_ex = #stay_ex# where
+		stay_no = #stay_no#
 	</update>
-	<select id = "selectroom" parameterClass="string" resultClass="roomvo">
+	<select id="selectroom" parameterClass="string"
+		resultClass="roomvo">
 		select * from room where stay_no = #stay_no#
 	</select>
 	<update id="updateroom" parameterClass="map">
-	 update room set room_no = #room_no#, room_grade = #room_grade#, room_price = #room_price# where stay_no = #stay_no# and room_no = #roomnum#	
+		update room set room_no = #room_no#, room_grade = #room_grade#, room_price =
+		#room_price# where stay_no = #stay_no# and room_no = #roomnum#
+	</update>
+	<select id="detailstay" parameterClass="string"
+		resultClass="stayvo">
+		select * from stay where stay_no = #data#
+
+	</select>
+	<select id="selectallroom" parameterClass="string"
+		resultClass="roomvo2">
+		select a.room_grade, a.room_price,a.room_no, b.spho_path from room a, s_photo b
+		where a.stay_no = b.stay_no
+		and a.room_no = b.room_no
+		and a.stay_no =
+		#data#
+		and <![CDATA[b.room_no <> 'upload' ]]>
+
+	</select>
+
+	<update id="updatesreview" parameterClass="s_reviewvo">
+		update s_review
+		set sre_title = #sre_title#, sre_content = #sre_content#, sre_date =sysdate , 
+			sre_point = #sre_point#, sre_imgpath = #sre_imgpath#
+		where sre_no = #sre_no#
 	</update>
 
- </sqlMap>
+	<update id="deletesreview" parameterClass="s_reviewvo">
+		update s_review
+		set sre_title = '강정인이지웠음'
+		where sre_no = #sre_no#
+	</update>
+
+</sqlMap>

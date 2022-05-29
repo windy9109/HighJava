@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap 
+PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-2.dtd">
+    
+     <sqlMap namespace="reply">
+     
+<!--      	<insert id="insertReply" parameterClass="ReplyVo">
+     		insert into reply
+     		values(
+     			reply_renum_seq.nextval,
+     			#bonum#,
+     			#name#,
+     			#cont#,
+     			sysdate
+     		)
+     		<selectKey keyProperty="renum" resultClass="int">
+     			select reply_renum_seq.currval from dual
+     			
+     		</selectKey>
+     	</insert> -->
+     	
+     	<select id="replyList" parameterClass="int" resultClass="ReplyVo">
+     		select ad_content, to_char(ad_date, 'yyyy-mm-dd') as ad_date, ad_no, qa_no, ad_number from a_admin where ad_number = #data#
+     	</select>
+     	
+     	
+<!--     <delete id="replyDelete" parameterClass="int">
+   		delete from reply where renum = #data#
+   	</delete> -->
+   	
+<!--    	<update id = "updateReply" parameterClass="ReplyVo">
+   		update reply set cont=#cont#, redate = sysdate where renum = #renum#
+   	</update> -->
+   	
+     	
+     </sqlMap>
